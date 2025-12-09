@@ -5,7 +5,11 @@
     <Home />
     <AboutMe />
     <Achievements />
+<<<<<<< HEAD
 
+=======
+    <!-- <Education /> -->
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
     <Skill />
     <Contact />
     

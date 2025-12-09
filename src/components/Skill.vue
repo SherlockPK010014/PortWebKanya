@@ -1,14 +1,23 @@
+<<<<<<< HEAD
 <!-- components/SkillGlassAccordion.vue -->
+=======
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 <template>
   <section class="skillga-section" id="skills">
     <h1 class="skillga-title" v-reveal>My Skills</h1>
 
     <div class="skillga-layout">
+<<<<<<< HEAD
       <!-- LEFT: Profile / Photo -->
       <!-- LEFT: Profile / Photo -->
       <aside class="ga-left" v-reveal>
         <div class="ga-photo">
           <!-- ✅ ใช้ transition ให้สลับรูปนิ่ม -->
+=======
+      <aside class="ga-left" v-reveal>
+        <div class="ga-photo">
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
           <transition name="fade-swap" mode="out-in">
             <img 
               :key="hovering ? 'alt' : 'main'"
@@ -24,7 +33,11 @@
       </aside>
 
 
+<<<<<<< HEAD
       <!-- RIGHT: Accordion groups (glass) -->
+=======
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       <main class="ga-right">
         <div
           v-for="(group, gi) in groups"
@@ -56,7 +69,10 @@
                     <span class="percent">{{ s.score }}%</span>
                   </div>
                   <div class="ga-bar-outer">
+<<<<<<< HEAD
                     <!-- เก็บค่าเป้าหมายไว้ใน data-w เพื่อใช้ JS เซ็ตทีหลัง -->
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
                     <div class="ga-bar-inner" :data-w="s.score"></div>
                   </div>
                   <div class="ga-tags">
@@ -98,7 +114,11 @@ export default {
     return {
       pic,
       picAlt,
+<<<<<<< HEAD
       hovering: false,   // state สำหรับเช็คว่ากำลัง hover อยู่หรือไม่
+=======
+      hovering: false,  
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       openIdx: 0,
       groups: [
         {
@@ -150,19 +170,28 @@ export default {
   },
   methods: {
     toggle(i, evt){
+<<<<<<< HEAD
     // เคลียร์โฟกัสปุ่มที่คลิก (กัน :focus-within ค้าง)
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
     evt?.currentTarget?.blur?.()
 
     const prev = this.openIdx
     this.openIdx = this.openIdx === i ? -1 : i
 
     this.$nextTick(() => {
+<<<<<<< HEAD
       // รีเซ็ตของอันก่อน
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       if (prev !== -1) {
         const prevAcc = this.$el.querySelectorAll('.ga-acc')[prev]
         if (prevAcc) this.resetBars(prevAcc)
       }
+<<<<<<< HEAD
       // เล่นของอันที่เปิด
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       if (this.openIdx !== -1) {
         const acc = this.$el.querySelectorAll('.ga-acc')[this.openIdx]
         if (acc) this.playBars(acc)
@@ -175,9 +204,13 @@ export default {
         el.style.width = '0px'
         el.style.opacity = '0'
         el.style.transform = 'translateY(6px)'
+<<<<<<< HEAD
         // force reflow เคลียร์สถานะค้าง
         void el.offsetWidth
         // คืน transition
+=======
+        void el.offsetWidth
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         el.style.transition = ''
       })
       wrapper.querySelectorAll('.ga-bar').forEach(li=>{
@@ -188,6 +221,7 @@ export default {
     playBars(wrapper){
       const bars = [...wrapper.querySelectorAll('.ga-bar')]
       const inners = [...wrapper.querySelectorAll('.ga-bar-inner')]
+<<<<<<< HEAD
       // 1) ให้ li ค่อยๆ โผล่ตามดีเลย์
       bars.forEach((li, idx)=>{
         const delay = idx * 70
@@ -196,11 +230,19 @@ export default {
         li.style.opacity = '0'
         li.style.transform = 'translateY(10px)'
         // next frame → show
+=======
+      bars.forEach((li, idx)=>{
+        const delay = idx * 70
+        li.style.transition = `opacity .45s ease ${delay}ms, transform .45s ease ${delay}ms`
+        li.style.opacity = '0'
+        li.style.transform = 'translateY(10px)'
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         requestAnimationFrame(()=>{
           li.style.opacity = '1'
           li.style.transform = 'translateY(0)'
         })
       })
+<<<<<<< HEAD
       // 2) รีเซ็ต width เป็น 0 แล้วค่อยวิ่งไปค่า % หลัง reflow
       inners.forEach((el, idx)=>{
         const target = (el.dataset.w || '100') + '%'
@@ -217,6 +259,20 @@ export default {
                                opacity .45s ease ${delay}ms,
                                transform .45s ease ${delay}ms`
         // วิ่ง!
+=======
+
+      inners.forEach((el, idx)=>{
+        const target = (el.dataset.w || '100') + '%'
+        el.style.width = '0px'
+        el.style.opacity = '0'
+        el.style.transform = 'translateY(6px)'
+        const delay = idx * 70 + 120
+        void el.offsetWidth
+        el.style.transition = `width .9s cubic-bezier(.22,.61,.36,1) .05s,
+                               opacity .45s ease ${delay}ms,
+                               transform .45s ease ${delay}ms`
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         requestAnimationFrame(()=>{
           el.style.opacity = '1'
           el.style.transform = 'translateY(0)'
@@ -226,7 +282,10 @@ export default {
     }
   },
   mounted(){
+<<<<<<< HEAD
     // เล่นของกลุ่มแรกตอนโหลด
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
     this.$nextTick(()=>{
       const first = this.$el.querySelectorAll('.ga-acc')[this.openIdx]
       if (first) this.playBars(first)
@@ -237,9 +296,14 @@ export default {
 
 <style scoped>
 
+<<<<<<< HEAD
 /* ===== Section & layout ===== */
 .skillga-section {
   margin-top: 120px;  /* เว้นห่างจาก section ด้านบน */
+=======
+.skillga-section {
+  margin-top: 120px; 
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
   padding: 3rem 2rem;
   background: radial-gradient(1200px 600px at 10% 0%, rgba(56,189,248,.12), transparent),
               linear-gradient(135deg, #1e293b, #0f172a);
@@ -258,7 +322,11 @@ export default {
 }
 @media (max-width: 980px){ .skillga-layout{ grid-template-columns:1fr; } }
 
+<<<<<<< HEAD
 /* ===== Glass card base ===== */
+=======
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-card{
   background: rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12);
@@ -268,7 +336,11 @@ export default {
   box-shadow: 0 14px 40px rgba(0,0,0,.25);
 }
 
+<<<<<<< HEAD
 /* ===== Left profile ===== */
+=======
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-left .profile{ text-align:center; position: sticky; top: 90px; }
 @media (max-width: 980px){ .ga-left .profile{ position: static; } }
 .ga-photo{ aspect-ratio:1/1; width: 100%; max-width: 260px; margin: .3rem auto 1rem; overflow:hidden; border-radius:14px; background:#0b1220; }
@@ -278,7 +350,11 @@ export default {
 .ga-btn{ background:#38bdf8; color:#031926; padding:.55rem 1rem; border-radius:10px; font-weight:800; }
 .ga-btn.ghost{ background:transparent; border:1px solid rgba(148,163,184,.3); color:#cbd5e1; }
 
+<<<<<<< HEAD
 /* ===== Accordion ===== */
+=======
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-acc{ padding:0; overflow:hidden; }
 .ga-acc + .ga-acc{ margin-top: .9rem; }
 
@@ -294,11 +370,18 @@ export default {
 
 .ga-acc-body{ padding: .6rem 1.2rem 1.2rem; }
 
+<<<<<<< HEAD
 /* ===== Bars ===== */
 .ga-bars{ list-style:none; padding:0; margin:0; display:grid; gap:1rem; }
 
 .ga-bar{
   /* สถานะเริ่ม: ซ่อนนิดๆ ไว้ให้ fade+slide */
+=======
+
+.ga-bars{ list-style:none; padding:0; margin:0; display:grid; gap:1rem; }
+
+.ga-bar{
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
   opacity: 0;
   transform: translateY(10px);
 }
@@ -319,11 +402,16 @@ export default {
   background: linear-gradient(90deg,#38bdf8,#22d3ee);
 }
 
+<<<<<<< HEAD
 /* tags + desc */
+=======
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-tags{ display:flex; gap:.35rem; flex-wrap:wrap; margin-top:.35rem; }
 .ga-tag{ font-size:.8rem; padding:.18rem .5rem; border-radius:999px; background: rgba(148,163,184,.18); color:#cbd5e1; }
 .ga-desc{ margin:.35rem 0 0; color:#cbd5e1; font-size:.95rem; }
 
+<<<<<<< HEAD
 /* ===== Reveal on scroll ===== */
 .reveal{ opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; transition-delay: var(--delay, 0ms); }
 .reveal.in-view{ opacity:1; transform: translateY(0); }
@@ -333,12 +421,21 @@ export default {
 .ga-acc-enter-active, .ga-acc-leave-active{ transition: all .25s ease; }
 
 /* Reduced motion */
+=======
+.reveal{ opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; transition-delay: var(--delay, 0ms); }
+.reveal.in-view{ opacity:1; transform: translateY(0); }
+
+.ga-acc-enter-from, .ga-acc-leave-to{ opacity:0; transform: translateY(-6px); }
+.ga-acc-enter-active, .ga-acc-leave-active{ transition: all .25s ease; }
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 @media (prefers-reduced-motion: reduce){
   .ga-bar, .ga-bar-inner{ transition: none !important; transform:none !important; opacity:1 !important; }
   .reveal{ transition: none !important; transform:none !important; opacity:1 !important; }
   .ga-acc-enter-active, .ga-acc-leave-active{ transition: none !important; }
 }
 .ga-photo {
+<<<<<<< HEAD
   /* ❌ ไม่ต้องมีพื้นหลังหรือกล่อง */
   width: 100%;
   max-width: 260px;
@@ -347,15 +444,30 @@ export default {
   border-radius: 0;   /* เอาโค้งออก */
   background: transparent; /* ใส */
   box-shadow: none;   /* ไม่มีเงา */
+=======
+  width: 100%;
+  max-width: 260px;
+  margin: .3rem auto 1rem;
+  overflow: visible;  
+  border-radius: 0;   
+  background: transparent; 
+  box-shadow: none;  
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 }
 
 .ga-photo img {
   width: 100%;
   height: auto;
+<<<<<<< HEAD
   object-fit: contain;  /* ให้คงสัดส่วน */
   display: block;
 }
 /* base */
+=======
+  object-fit: contain; 
+  display: block;
+}
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-acc{
   position: relative;
   will-change: transform, box-shadow;
@@ -365,7 +477,10 @@ export default {
     box-shadow 0.4s ease;
 }
 
+<<<<<<< HEAD
 /* ฐานเดิม */
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-acc{
   position: relative;
   will-change: transform, box-shadow;
@@ -375,12 +490,16 @@ export default {
     box-shadow 0.4s ease;
 }
 
+<<<<<<< HEAD
 /* เด้งตอน hover (สำหรับการ์ดที่ยังไม่เปิด) */
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-acc:hover{
   transform: scale(1.06);
   box-shadow: 0 18px 40px rgba(0,0,0,.45);
 }
 
+<<<<<<< HEAD
 /* ✅ การ์ดที่เปิดอยู่: คงเด้งเล็กๆ ต่อให้เอาเมาส์ออก */
 .ga-acc.open{
   transform: scale(1.03); /* คงขยายเล็กน้อย */
@@ -388,21 +507,36 @@ export default {
 }
 
 /* เมื่อเปิดอยู่แล้ว, hover ไม่ต้องเด้งเพิ่ม (คงค่าข้างบนไว้) */
+=======
+.ga-acc.open{
+  transform: scale(1.03); 
+  box-shadow: 0 18px 48px rgba(0,0,0,.40);
+}
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-acc.open:hover{
   transform: scale(1.03);
   box-shadow: 0 18px 48px rgba(0,0,0,.40);
 }
 
+<<<<<<< HEAD
 /* กัน state ค้าง: ถ้าไม่ได้ hover และไม่ open ให้กลับปกติแน่นอน */
+=======
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .ga-acc:not(:hover):not(.open){
   transform: scale(1);
   box-shadow: 0 14px 40px rgba(0,0,0,.25);
 }
 
+<<<<<<< HEAD
 /* กันกระตุกตอนคลิก */
 .ga-acc-head:focus{ outline: none; }
 
 /* ===== Fade Swap Transition ===== */
+=======
+.ga-acc-head:focus{ outline: none; }
+
+>>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .fade-swap-enter-active,
 .fade-swap-leave-active {
   transition: opacity 0.4s ease, transform 0.4s ease;

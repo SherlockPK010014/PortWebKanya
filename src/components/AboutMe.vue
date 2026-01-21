@@ -114,11 +114,7 @@ export default {
   display: flex;
   align-items: flex-start;
   gap: 2rem;
-<<<<<<< HEAD
   flex-wrap: wrap; 
-=======
-  flex-wrap: wrap; /* responsive */
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 }
 
 .Pic-ABU {
@@ -206,11 +202,6 @@ export default {
   background: rgba(56, 189, 248, 0.15);
 }
 
-<<<<<<< HEAD
-
-=======
-/* Animation */
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 @keyframes flip {
   0%   { transform: rotateY(0deg); }
   45%  { transform: rotateY(180deg); }
@@ -219,21 +210,12 @@ export default {
   100% { transform: rotateY(0deg); }
 }
 
-<<<<<<< HEAD
-=======
-/* Responsive */
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 @media (max-width: 900px) {
   .about-me-container { flex-direction: column; align-items: center; }
   .title { text-align: center; }
   .profile-content { text-align: center; }
   .profile-inner h4 { justify-content: center; }
 }
-<<<<<<< HEAD
-
-=======
-/* --- Scroll reveal (fade + slide-up) --- */
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .reveal{
   opacity: 0;
   transform: translateY(16px);

@@ -66,15 +66,9 @@ export default {
           (entries) => {
             entries.forEach((e) => {
               if (e.isIntersecting) {
-<<<<<<< HEAD
                 e.target.classList.add('in-view');   // โผล่
               } else {
                 e.target.classList.remove('in-view'); // ซ่อนเมื่อพ้นจอ (เล่นซ้ำได้)
-=======
-                e.target.classList.add('in-view');  
-              } else {
-                e.target.classList.remove('in-view');
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
               }
             });
           },
@@ -212,21 +206,14 @@ export default {
   left: 880px;
   transform: translateX(0);
 }
-<<<<<<< HEAD
 /* ===== Fade + Slide Up (reveal on scroll) ===== */
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .reveal {
   opacity: 0;
   transform: translateY(16px);
   transition:
     opacity .7s ease,
     transform .7s ease;
-<<<<<<< HEAD
   /* ถ้าอยากหน่วงแต่ละบล็อก ใส่ inline style: style="--delay:200ms" ได้ */
-=======
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
   transition-delay: var(--delay, 0ms);
   will-change: opacity, transform;
 }

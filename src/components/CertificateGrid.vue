@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-<template>
-  <section class="cert-section" id="achievements">
-    <h1 class="cert-title "v-reveal>Achievements</h1>
-=======
 
 <template>
   <section class="cert-section" id="achievements">
     <h1 class="cert-title "v-reveal>Achievements</h1>
 
    
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
     <div class="filters" v-reveal>
       <button
     v-for="t in ['All', ...allTags]"
@@ -22,18 +16,12 @@
   </button>
     </div>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
     <div class="grid">
       <article v-for="(c, i) in filtered" :key="i" class="card" @click="open(c)"v-reveal
     :style="{ '--delay': (i * 80) + 'ms' }">
         <div class="thumb">
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
           <img :src="c.images?.[0] ?? c.image" :alt="c.title" loading="lazy" />
           <span v-if="c.verified" class="ribbon">Verified</span>
           <span v-if="c.images?.length" class="multi-badge">{{ c.images.length }} images</span>
@@ -42,11 +30,8 @@
         <div class="meta">
           <h3 class="ctitle">{{ c.title }}</h3>
           <p class="issuer">{{ c.issuer }}</p>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
           <div class="cert-tags">
             <span class="cert-tag" v-for="t in c.tags" :key="t">{{ t }}</span>
           </div>
@@ -55,34 +40,22 @@
         </div>
       </article>
     </div>
-<<<<<<< HEAD
-    <div v-if="active" class="lightbox" @click.self="close" v-reveal>
-      <div class="lightbox-inner" v-reveal style="--delay:120ms">
-=======
 
 
     <div v-if="active" class="lightbox" @click.self="close" v-reveal>
       <div class="lightbox-inner" v-reveal style="--delay:120ms">
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         <div class="viewer" v-reveal style="--delay:160ms">
           <button v-if="active.images?.length" class="nav prev" @click.stop="prev"
             aria-label="Previous image">&#10094;</button>
 
-<<<<<<< HEAD
-          
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
           <img :src="active.images?.length ? active.images[activeIndex] : active.image" :alt="active.title" />
 
           <button v-if="active.images?.length" class="nav next" @click.stop="next"
             aria-label="Next image">&#10095;</button>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
           <div v-if="active.images?.length" class="thumbs">
             <button v-for="(img, idx) in active.images" :key="idx" class="thumb-btn"
               :class="{ active: idx === activeIndex }" @click.stop="activeIndex = idx">
@@ -95,11 +68,6 @@
           <h3>{{ active.title }}</h3>
           <p class="issuer">{{ active.issuer }} • {{ formatDate(active.date) }}</p>
           <p class="desc" v-if="active.desc">{{ active.desc }}</p>
-<<<<<<< HEAD
-
-          
-=======
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         </div>
       <button class="btn ghost close-btn" @click="close">Close</button>
       </div>
@@ -110,12 +78,8 @@
 
 
 <script>
-<<<<<<< HEAD
 import CAB_LINKG from '@/assets/cablink.jpg'
-import Next_JS from '@/assets/Next_JS_.jpg'
-=======
-import PK_1 from '@/assets/34277.jpg'
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
+import NEXTJS from '@/assets/Next_JS_.jpg'
 import mathLabCert from '@/assets/MathLABcertificate.jpg'
 import SPANSDG001 from '@/assets/SPA&SDGs_page-0001.jpg'
 import SPANSDG002 from '@/assets/SPA&SDGs_page-0002.jpg'
@@ -186,15 +150,6 @@ import SE4 from '@/assets/Seminar67/SE4.jpg'
 import SE5 from '@/assets/Seminar67/SE5.jpg'
 import SE6 from '@/assets/Seminar67/SE6.jpg'
 import SE7 from '@/assets/Seminar67/SE7.jpg'
-<<<<<<< HEAD
-import F1 from '@/assets/figma/F1.png'
-import F2 from '@/assets/figma/F2.png'
-import F3 from '@/assets/figma/F3.png'
-import F4 from '@/assets/figma/F4.png'
-import F5 from '@/assets/figma/F5.png'
-import F6 from '@/assets/figma/F6.png'
-import F7 from '@/assets/figma/F7.png'
-=======
 import F1 from '@/assets/figma/f1.png'
 import F2 from '@/assets/figma/f2.png'
 import F3 from '@/assets/figma/f3.png'
@@ -202,26 +157,17 @@ import F4 from '@/assets/figma/f4.png'
 import F5 from '@/assets/figma/f5.png'
 import F6 from '@/assets/figma/f6.png'
 import F7 from '@/assets/figma/f7.png'
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 export default {
   directives: {
   reveal: {
     mounted(el) {
-<<<<<<< HEAD
-      // เริ่มซ่อน
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       el.classList.add('reveal');
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
             if (e.isIntersecting) {
-<<<<<<< HEAD
-              e.target.classList.add('in-view');   
-=======
               e.target.classList.add('in-view'); 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
             } else {
               e.target.classList.remove('in-view'); 
             }
@@ -229,10 +175,7 @@ export default {
         },
         { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
       );
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       el.__io = io;
       io.observe(el);
     },
@@ -391,7 +334,6 @@ export default {
           images: [F1, F2, F3, F4, F5, F6, F7],
           verified: false,
           desc: 'Designed a digital prototype of the official university leave request form using Figma. The project focused on creating a clear, user-friendly interface that simplifies the leave application process for students and ensures accessibility across devices.',
-<<<<<<< HEAD
         },
         {
           title: 'LINK Certified – Network Cabling Training for Engineering',
@@ -408,12 +350,10 @@ export default {
           issuer: 'Next.js Fundamentals & Practical Web Development',
           date: '2025-11-12',
           tags: ['KU', 'WEB'],
-          image: Next_JS,
+          image: NEXTJS,
           file: null,
           verified: false,
           desc: 'This course provides participants with a solid understanding of Next.js, a modern React framework for building high-performance web applications. The training covers core concepts such as routing, server-side rendering (SSR), API routes, data fetching, and project structuring. Participants will also engage in hands-on practice to develop real-world applications and strengthen their skills in modern full-stack web development.',
-=======
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         }
       ],
     }
@@ -431,20 +371,14 @@ export default {
     },
   },
   methods: {
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
     coverOf(item) {
       return item.images?.[0] ?? item.image
     },
     open(item) {
       this.active = item
       this.activeIndex = 0
-<<<<<<< HEAD
-=======
       // ดักคีย์บอร์ดลูกศร
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       window.addEventListener('keydown', this.onKey)
     },
     close() {
@@ -458,10 +392,7 @@ export default {
       if (e.key === 'ArrowLeft') this.prev()
     },
     currentImage() {
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       if (!this.active) return ''
       if (this.active.images?.length) return this.active.images[this.activeIndex]
       return this.active.image
@@ -490,10 +421,7 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .viewer {
   position: relative;
   background: #0b1220;
@@ -512,10 +440,7 @@ export default {
   border-radius: 8px;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .nav {
   position: absolute;
   top: 50%;
@@ -545,11 +470,8 @@ export default {
 .nav.next {
   right: 20px;
 }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .thumbs {
   display: flex;
   gap: .5rem;
@@ -589,10 +511,7 @@ export default {
   object-fit: cover;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .multi-badge {
   position: absolute;
   bottom: 8px;
@@ -624,10 +543,7 @@ export default {
   letter-spacing: .5px;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .filters {
   display: flex;
   gap: .6rem;
@@ -657,10 +573,6 @@ export default {
   color: #e6f6ff;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -791,11 +703,7 @@ export default {
 }
 
 .lightbox-inner{
-<<<<<<< HEAD
-  position: relative;            
-=======
   position: relative;   
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
   display: grid;
   grid-template-columns: minmax(320px, 60vw) minmax(280px, 420px);
   gap: 1.2rem;
@@ -941,28 +849,19 @@ export default {
 
 .card{ will-change: transform, box-shadow; }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .card:hover{
   animation: card-pop 260ms cubic-bezier(.22,1,.36,1) both;
   box-shadow: 0 18px 36px rgba(0,0,0,.40);
   border-color: rgba(56,189,248,.45);
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .card:active{
   transform: translateY(-2px) scale(.995);
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 @keyframes card-pop{
   0%   { transform: translateY(0) scale(1); }
   60%  { transform: translateY(-6px) scale(1.018); }

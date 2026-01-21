@@ -3,13 +3,9 @@
     <h1 class="c2-title" v-reveal>Contact</h1>
 
     <div class="c2-wrap">
-<<<<<<< HEAD
       <!-- LEFT: Channels & Socials -->
       <main class="c2-right">
         <!-- Primary channels -->
-=======
-      <main class="c2-right">
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         <div class="c2-card" v-reveal style="--delay:140ms">
           <h4 class="c2-card-title">Reach me via</h4>
           <ul class="c2-list">
@@ -43,11 +39,7 @@
           </ul>
         </div>
 
-<<<<<<< HEAD
         <!-- Social chips -->
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         <div class="c2-card" v-reveal style="--delay:200ms">
           <h4 class="c2-card-title">Socials</h4>
           <div class="c2-chips">
@@ -65,21 +57,13 @@
           </div>
         </div>
 
-<<<<<<< HEAD
         <!-- Toast -->
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
         <transition name="c2-toast">
           <div v-if="toast" class="c2-toast">{{ toast }}</div>
         </transition>
       </main>
 
-<<<<<<< HEAD
       <!-- RIGHT: Profile visual -->
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
       <aside class="c2-left" v-reveal style="--delay:80ms">
         <div class="c2-visual">
           <div class="c2-blob"></div>
@@ -128,7 +112,7 @@ export default {
       pic,
       toast: '',
       profile: {
-        name: 'Kunyasiri P.',
+        name: 'Kanyasiri K.',
         role: 'Computer Science • Student',
         email: 'you@example.com'
       },
@@ -146,6 +130,13 @@ export default {
           sub: '@kanyasiri_4869',
           href: 'https://line.me/R/ti/p/@kanyasiri_4869',
           copy: 'kanyasiri_4869'
+        },
+        {
+          icon: '📞',
+          label: 'Phone',
+          sub: '+66 96 945 9415',
+          href: 'tel:+66991234567',
+          copy: '+66991234567'
         }
       ],
       socials: [
@@ -168,10 +159,7 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
 /* ===== Section ===== */
-=======
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .c2-section{
   margin-top:140px;
   padding:3rem 2rem;
@@ -203,11 +191,7 @@ export default {
   .c2-wrap{ grid-template-columns: 1fr; }
 }
 
-<<<<<<< HEAD
 /* ===== Right: Profile panel ===== */
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .c2-left{
   display:flex;
   flex-direction:column;
@@ -263,11 +247,7 @@ export default {
 .c2-name{ font-size:1.6rem; font-weight:800; color:#e2e8f0; }
 .c2-role{ color:#cbd5e1; }
 
-<<<<<<< HEAD
 /* ===== Left: Cards (channels + socials) ===== */
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .c2-right{
   display:flex;
   flex-direction:column;
@@ -293,16 +273,10 @@ export default {
   font-size:1.2rem;
   font-weight:800;
   color:#e2e8f0;
-<<<<<<< HEAD
   margin:0 0 .8rem;
 }
 
 /* Primary list */
-=======
-  margin:0 0 .8rem; 
-}
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .c2-list{
   list-style:none;
   padding:0;
@@ -359,10 +333,6 @@ export default {
   border-color:rgba(56,189,248,.45);
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .c2-chips{ display:flex; flex-wrap:wrap; gap:.6rem; }
 .c2-chip{
   display:inline-flex; align-items:center; gap:.5rem;
@@ -386,10 +356,6 @@ export default {
 }
 .c2-chip-text{ font-weight:700; }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .reveal{
   opacity:0;
   transform:translateY(16px);
@@ -401,10 +367,6 @@ export default {
   transform:translateY(0);
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .c2-toast{
   position:fixed;
   bottom:24px;

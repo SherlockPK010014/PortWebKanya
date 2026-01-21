@@ -21,10 +21,6 @@ export default {
   text-decoration: none;
   
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .navbar a,
 .navbar a:link,
 .navbar a:visited,
@@ -32,17 +28,10 @@ export default {
 .navbar a:active,
 .navbar a:focus,
 .navbar a:focus-visible {
-<<<<<<< HEAD
   text-decoration: none !important;        
   text-decoration-color: transparent !important;
   border: none !important;                 
   outline: none;                         
-=======
-  text-decoration: none !important;    
-  text-decoration-color: transparent !important;
-  border: none !important;              
-  outline: none;                       
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
   box-shadow: none;
   color: #e2e8f0;
   position: relative;
@@ -51,11 +40,6 @@ export default {
   font-size: 2rem;
   font-weight: 500;
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .navbar a::after {
   content: "";
   position: absolute;
@@ -67,20 +51,12 @@ export default {
   transition: width 0.3s ease;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .navbar a:hover {
   color: #38bdf8;
 }
 .navbar a:hover::after {
   width: 100%;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192
 .navbar a:focus-visible {
   outline: 2px solid #38bdf8;
   outline-offset: 4px;
@@ -89,8 +65,4 @@ export default {
 
 
 
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> 6b7841d58d5275491b2e58e86385391170c94192

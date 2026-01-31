@@ -1,7 +1,7 @@
 
 <template>
   <section class="cert-section" id="achievements">
-    <h1 class="cert-title "v-reveal>Achievements</h1>
+    <h1 class="cert-title " v-reveal>Achievements</h1>
 
    
     <div class="filters" v-reveal>
@@ -18,7 +18,7 @@
 
 
     <div class="grid">
-      <article v-for="(c, i) in filtered" :key="i" class="card" @click="open(c)"v-reveal
+      <article v-for="(c, i) in filtered" :key="i" class="card" @click="open(c)" v-reveal
     :style="{ '--delay': (i * 80) + 'ms' }">
         <div class="thumb">
 
@@ -157,6 +157,21 @@ import F4 from '@/assets/figma/f4.png'
 import F5 from '@/assets/figma/f5.png'
 import F6 from '@/assets/figma/f6.png'
 import F7 from '@/assets/figma/f7.png'
+import Biotech from '@/assets/NCHU/Biotech.jpg'
+import N2 from '@/assets/NCHU/N2.jpg'
+import N3 from '@/assets/NCHU/N3.jpg'
+import N4 from '@/assets/NCHU/N4.jpg'
+import N5 from '@/assets/NCHU/N5.jpg'
+import N6 from '@/assets/NCHU/N6.jpg'
+import N7 from '@/assets/NCHU/N7.jpg'
+import N8 from '@/assets/NCHU/N8.jpg'
+import N9 from '@/assets/NCHU/N9.jpg'
+import N10 from '@/assets/NCHU/N10.jpg'
+import N11 from '@/assets/NCHU/N11.jpg'
+import SUDO from '@/assets/SUDOKU/Sudoku.mp4'
+import sudo from '@/assets/SUDOKU/SUDO2.png'
+import emotion from '@/assets/Emotional/emo.png'
+
 export default {
   directives: {
   reveal: {
@@ -354,6 +369,31 @@ export default {
           file: null,
           verified: false,
           desc: 'This course provides participants with a solid understanding of Next.js, a modern React framework for building high-performance web applications. The training covers core concepts such as routing, server-side rendering (SSR), API routes, data fetching, and project structuring. Participants will also engage in hands-on practice to develop real-world applications and strengthen their skills in modern full-stack web development.',
+        },
+        {
+          title: 'Student Exchange Program',
+          issuer: 'Faculty of Science, Sriracha Campus, in collaboration with National Chung Hsing University (NCHU) Taiwan',
+          date: '2025-11-10',
+          tags: ['KU', 'Exchange Program'],
+          images:[Biotech, N6, N3, N4, N5, N7, N8, N9, N10, N11],
+          verified: false,
+          desc: 'I was selected to participate in the student exchange program between the Faculty of Science, Sriracha Campus, and National Chung Hsing University (NCHU). This program provided my first overseas experience, allowing me to step outside my comfort zone and adapt to a new cultural environment. At NCHU, I gained firsthand exposure to Taiwan’s education and research systems through laboratory visits and discussions with professors and researchers, particularly in the rapidly growing semiconductor field. The program also enhanced my practical use of English and Chinese in real-life situations.',
+        },
+        {
+          title: 'SUDOKU Puzzle with Python Programming',
+          issuer: 'AR Sudoku Game Development using Hand Tracking',
+          tags: ['AI'],
+          image: sudo,
+          verified: false,
+          desc: 'Built an AR Sudoku game that lets players select cells and enter numbers with webcam-tracked hand gestures (OpenCV, cvzone.HandTrackingModule)'
+        },
+        {
+          title: 'Emotional Recognition System using Deep Learning',
+          issuer: 'AI Emotion Detection from Facial Expressions',
+          tags: ['AI'],
+          image: emotion,
+          verified: false,
+          desc: 'Developed a facial emotion recognition system using DeepFace and FER libraries to classify emotions from webcam images in real-time.'
         }
       ],
     }
@@ -879,6 +919,14 @@ export default {
   outline: 2px solid #38bdf8;
   outline-offset: 2px;
   animation: card-pop 260ms cubic-bezier(.22,1,.36,1) both;
+  
+}
+
+.thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
 }
 
 </style>

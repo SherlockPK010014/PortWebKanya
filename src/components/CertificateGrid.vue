@@ -255,7 +255,7 @@ export default {
         },
         {
           title: 'KU Green Blood Camp',
-          issuer: 'DSCs • Kasetsart University',
+          issuer: 'SDGs • Kasetsart University',
           date: '2024-05-07',
           tags: ['KU', 'SDGs'],
           images: [DSC1, DSC2, DSC3, DSC4, DSC5, DSC6],

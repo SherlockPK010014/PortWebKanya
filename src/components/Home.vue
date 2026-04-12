@@ -55,11 +55,10 @@ export default {
       this.isExpanded = true;
     }
   },
-  // ⬇️ เพิ่มส่วนนี้
   directives: {
     reveal: {
       mounted(el) {
-        // เริ่มจากสถานะซ่อน
+       
         el.classList.add('reveal');
 
         const io = new IntersectionObserver(
@@ -206,7 +205,7 @@ export default {
   left: 880px;
   transform: translateX(0);
 }
-/* ===== Fade + Slide Up (reveal on scroll) ===== */
+
 .reveal {
   opacity: 0;
   transform: translateY(16px);

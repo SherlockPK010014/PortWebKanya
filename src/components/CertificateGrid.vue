@@ -171,6 +171,8 @@ import N11 from '@/assets/NCHU/N11.jpg'
 import SUDO from '@/assets/SUDOKU/Sudoku.mp4'
 import sudo from '@/assets/SUDOKU/SUDO2.png'
 import emotion from '@/assets/Emotional/emo.png'
+import D3 from '@/assets/3D/3Dgra.png'
+import D3x from '@/assets/3D/3Dsatur.png'
 
 export default {
   directives: {
@@ -382,7 +384,7 @@ export default {
         {
           title: 'SUDOKU Puzzle with Python Programming',
           issuer: 'AR Sudoku Game Development using Hand Tracking',
-          tags: ['AI'],
+          tags: ['AI&Computer Vision'],
           image: sudo,
           verified: false,
           desc: 'Built an AR Sudoku game that lets players select cells and enter numbers with webcam-tracked hand gestures (OpenCV, cvzone.HandTrackingModule)'
@@ -390,10 +392,18 @@ export default {
         {
           title: 'Emotional Recognition System using Deep Learning',
           issuer: 'AI Emotion Detection from Facial Expressions',
-          tags: ['AI'],
+          tags: ['AI&Computer Vision'],
           image: emotion,
           verified: false,
           desc: 'Developed a facial emotion recognition system using DeepFace and FER libraries to classify emotions from webcam images in real-time.'
+        },
+        {
+          title : '3D Particle System',
+          issuer : 'Interactive 3D Graphics powered by Hand-Gesture AI',
+          tags: ['AI&Computer Vision'],
+          images: [D3 , D3x],
+          verified :false ,
+          desc : 'Developed an immersive 3D particle system using Three.js and MediaPipe. Integrated Real-time Hand Tracking to map human gestures (Pinch & Rotation) to 3D object manipulations with post-processing Bloom effects.'
         }
       ],
     }

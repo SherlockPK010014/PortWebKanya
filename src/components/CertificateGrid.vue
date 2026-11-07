@@ -36,7 +36,7 @@
             <span class="cert-tag" v-for="t in c.tags" :key="t">{{ t }}</span>
           </div>
 
-          <p class="date">{{ formatDate(c.date) }}</p>
+          <p class="date" v-if="c.period || c.date">{{ c.period ?? formatDate(c.date) }}</p>
         </div>
       </article>
     </div>
@@ -66,7 +66,7 @@
 
         <div class="lb-info" v-reveal style="--delay:200ms">
           <h3>{{ active.title }}</h3>
-          <p class="issuer">{{ active.issuer }} • {{ formatDate(active.date) }}</p>
+          <p class="issuer">{{ [active.issuer, active.period ?? (active.date ? formatDate(active.date) : '')].filter(Boolean).join(' • ') }}</p>
           <p class="desc" v-if="active.desc">{{ active.desc }}</p>
         </div>
       <button class="btn ghost close-btn" @click="close">Close</button>
@@ -168,11 +168,30 @@ import N8 from '@/assets/NCHU/N8.jpg'
 import N9 from '@/assets/NCHU/N9.jpg'
 import N10 from '@/assets/NCHU/N10.jpg'
 import N11 from '@/assets/NCHU/N11.jpg'
-import SUDO from '@/assets/SUDOKU/Sudoku.mp4'
 import sudo from '@/assets/SUDOKU/SUDO2.png'
 import emotion from '@/assets/Emotional/emo.png'
 import D3 from '@/assets/3D/3Dgra.png'
 import D3x from '@/assets/3D/3Dsatur.png'
+
+const globImages = (mods) =>
+  Object.entries(mods)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, url]) => url)
+
+const KURU_IMGS = globImages(
+  import.meta.glob('../assets/KURU/*.{jpg,jpeg,png,JPG}', { eager: true, import: 'default' })
+)
+const CALVAL_IMGS = globImages(
+  import.meta.glob('../assets/CalVal/*.{jpg,jpeg,png,JPG}', { eager: true, import: 'default' })
+)
+import ACADEMIC from '@/assets/Academic_Excellence_Award.png'
+
+const TADS_IMGS = globImages(
+  import.meta.glob('../assets/TADS/*.{jpg,jpeg,png,JPG}', { eager: true, import: 'default' })
+)
+const TSX_IMGS =globImages(
+  import.meta.glob('../assets/TSX2026/*.{jpg,jpeg,png,JPG}', { eager: true, import: 'default' })
+)
 
 export default {
   directives: {
@@ -222,6 +241,15 @@ export default {
           file: null,
           verified: false,
           desc: 'Fundamentals of MATLAB scripting, matrices, and visualization.',
+        },
+        {
+          title: 'Academic Excellence Award',
+          issuer: 'Faculty of Computer Science • Kasetsart University',
+          date: '2026-07-09',
+          tags: ['KU', 'Academic'],
+          image: ACADEMIC,
+          verified: false,
+          desc: 'Awarded by Kasetsart University for outstanding academic performance in the 2025 academic year (B.E. 2568) as a student of the Faculty of Computer Science.',
         },
         {
           title: 'President of the Student Constitution Committee',
@@ -384,7 +412,7 @@ export default {
         {
           title: 'SUDOKU Puzzle with Python Programming',
           issuer: 'AR Sudoku Game Development using Hand Tracking',
-          tags: ['AI&Computer Vision'],
+          tags: ['Project'],
           image: sudo,
           verified: false,
           desc: 'Built an AR Sudoku game that lets players select cells and enter numbers with webcam-tracked hand gestures (OpenCV, cvzone.HandTrackingModule)'
@@ -392,7 +420,7 @@ export default {
         {
           title: 'Emotional Recognition System using Deep Learning',
           issuer: 'AI Emotion Detection from Facial Expressions',
-          tags: ['AI&Computer Vision'],
+          tags: ['Project'],
           image: emotion,
           verified: false,
           desc: 'Developed a facial emotion recognition system using DeepFace and FER libraries to classify emotions from webcam images in real-time.'
@@ -400,24 +428,64 @@ export default {
         {
           title : '3D Particle System',
           issuer : 'Interactive 3D Graphics powered by Hand-Gesture AI',
-          tags: ['AI&Computer Vision'],
+          tags: ['Project'],
           images: [D3 , D3x],
           verified :false ,
           desc : 'Developed an immersive 3D particle system using Three.js and MediaPipe. Integrated Real-time Hand Tracking to map human gestures (Pinch & Rotation) to 3D object manipulations with post-processing Bloom effects.'
+        },
+        {
+          title : 'KURU — Intelligent Academic Regulations Chatbot',
+          issuer: 'Senior Project • Team Project',
+          period: '2026',
+          tags : ['Project'],
+          images : KURU_IMGS,
+          verified : false,
+          desc : 'A chatbot prototype that answers questions about university academic regulations using Retrieval-Augmented Generation (RAG) over official academic documents. I contributed to frontend development, RAG implementation, system integration, and administrative features, and ran system testing to ensure reliable interaction between components.'
+        },
+        {
+          title:'TADS — THEOS-2 Anomaly Detection System',
+          issuer:'Python • Digital Image Processing',
+          period: '2026',
+          tags:['Project'],
+          images : TADS_IMGS,
+          verified : false,
+          desc:'A Python-based system that detects and assesses oversaturation anomalies in THEOS-2 satellite imagery. Implemented saturation detection, connected-component analysis, severity assessment, batch processing, and mask generation, with both CLI and GUI interfaces to support image analysis workflows.'
+        },
+        {
+          title: 'Programmer (Co-op Intern) — GISTDA Cal/Val Team',
+          issuer: 'Geo-Informatics and Space Technology Development Agency (GISTDA) • Si Racha',
+          period: '2026',
+          tags : ['Experience'],
+          images: CALVAL_IMGS,
+          verified:false,
+          desc : 'Co-op internship with the Calibration & Validation (Cal/Val) Team, Satellite Data Operations Division. Developed TADS for detecting oversaturation anomalies in THEOS-2 imagery; tested internal Cal/Val systems (Web Cal/Val Portal, SR-ARD modules) and documented results; joined field activities supporting geometric and radiometric calibration; processed and visualized satellite imagery with QGIS and GIMP (DEM generation, 3D anaglyph); and completed training in Super Resolution, GeoAI, and SAR/Optical image processing.'
+        },
+        {
+          title:'Thailand Space Expo 2026',
+          issuer : 'Participant • Space Technology Exhibition',
+          period: '2026',
+          tags :['Experience'],
+          images : TSX_IMGS,
+          verified : false,
+          desc : "Attended Thailand's space technology exhibition and explored developments in satellite technology, space innovation, and geospatial applications."
         }
       ],
     }
   },
   computed: {
+    // ซ่อนการ์ดที่ยังไม่มีรูป
+    visibleItems() {
+      return this.items.filter(i => i.images?.length || (typeof i.image === 'string' && i.image))
+    },
     allTags() {
       const s = new Set()
-      this.items.forEach(i => i.tags.forEach(t => s.add(t)))
+      this.visibleItems.forEach(i => (i.tags ?? []).forEach(t => s.add(t)))
       return Array.from(s)
     },
     filtered() {
       return this.activeTag === 'All'
-        ? this.items
-        : this.items.filter(i => i.tags.includes(this.activeTag))
+        ? this.visibleItems
+        : this.visibleItems.filter(i => i.tags?.includes(this.activeTag))
     },
   },
   methods: {

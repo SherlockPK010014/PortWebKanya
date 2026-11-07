@@ -114,7 +114,7 @@ export default {
       profile: {
         name: 'Kanyasiri K.',
         role: 'Computer Science • Student',
-        email: 'you@example.com'
+        email: 'pksirichotkul@gmail.com'
       },
       primary: [
         {
@@ -135,8 +135,8 @@ export default {
           icon: '📞',
           label: 'Phone',
           sub: '+66 96 945 9415',
-          href: 'tel:+66991234567',
-          copy: '+66991234567'
+          href: 'tel:+66969459415',
+          copy: '+66969459415'
         }
       ],
       socials: [

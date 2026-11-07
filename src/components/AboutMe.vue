@@ -32,10 +32,10 @@
             <span class="value">{{ profile.nickname }}</span>
           </h4>
           <br />
-          <h4 class="reveal" v-reveal style="--delay:440ms">
+          <!--<h4 class="reveal" v-reveal style="--delay:440ms">
             <span class="label">Student ID : </span>
             <span class="value">{{ profile.studentID }}</span>
-          </h4>
+          </h4>-->
           <br />
           <h4 class="reveal" v-reveal style="--delay:520ms">
             <span class="label">Major : </span>

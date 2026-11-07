@@ -1,6 +1,6 @@
 <!-- components/SkillGlassAccordion.vue -->
 <template>
-  <section class="skillga-section" id="skills">
+  <section class="skillga-section starfield" id="skills">
     <h1 class="skillga-title" v-reveal>My Skills</h1>
 
     <div class="skillga-layout">

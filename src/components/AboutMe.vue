@@ -1,5 +1,5 @@
 <template>
-  <section class="section" id="about-me">
+  <section class="section starfield" id="about-me">
     <div class="about-me-container">
       <div class="Pic-ABU reveal" v-reveal style="--delay:0ms">
         <div class="card">

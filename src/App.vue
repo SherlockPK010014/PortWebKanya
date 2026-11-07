@@ -31,7 +31,6 @@ export default {
     Achievements,
     Skill,
     Contact,
-    
   }
 }
 </script>
@@ -99,6 +98,69 @@ nav.navbar a:hover,
 nav.navbar a.active {
     color: rgb(223, 100, 77);
     border-bottom: 2px solid rgb(223, 100, 77);
+}
+
+/* Starfield: ดาวระยิบระยับเป็นพื้นหลังของ section (ใส่ class="starfield" ที่ section) */
+.starfield {
+    position: relative;
+    isolation: isolate;
+}
+
+.starfield::before,
+.starfield::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background-repeat: repeat;
+}
+
+.starfield::before {
+    background-size: 460px 460px;
+    background-image:
+        radial-gradient(1px 1px at 23px 41px, rgba(255,255,255,.9), transparent),
+        radial-gradient(1.5px 1.5px at 97px 210px, rgba(255,255,255,.8), transparent),
+        radial-gradient(1px 1px at 160px 78px, rgba(226,240,255,.9), transparent),
+        radial-gradient(1px 1px at 212px 330px, rgba(255,255,255,.7), transparent),
+        radial-gradient(1.5px 1.5px at 280px 140px, rgba(255,255,255,.9), transparent),
+        radial-gradient(1px 1px at 333px 402px, rgba(255,236,200,.8), transparent),
+        radial-gradient(1px 1px at 390px 60px, rgba(255,255,255,.8), transparent),
+        radial-gradient(1.5px 1.5px at 430px 260px, rgba(226,240,255,.8), transparent),
+        radial-gradient(1px 1px at 70px 380px, rgba(255,255,255,.7), transparent),
+        radial-gradient(1px 1px at 250px 10px, rgba(255,255,255,.9), transparent);
+    animation: starTwinkleA 5s ease-in-out infinite;
+}
+
+.starfield::after {
+    background-size: 577px 577px;
+    background-image:
+        radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,.9), transparent),
+        radial-gradient(1.5px 1.5px at 140px 450px, rgba(255,255,255,.8), transparent),
+        radial-gradient(1px 1px at 210px 200px, rgba(226,240,255,.9), transparent),
+        radial-gradient(1px 1px at 300px 540px, rgba(255,255,255,.7), transparent),
+        radial-gradient(1.5px 1.5px at 360px 90px, rgba(255,255,255,.9), transparent),
+        radial-gradient(1px 1px at 420px 330px, rgba(255,255,255,.8), transparent),
+        radial-gradient(1px 1px at 500px 470px, rgba(255,236,200,.8), transparent),
+        radial-gradient(1px 1px at 540px 30px, rgba(255,255,255,.8), transparent),
+        radial-gradient(1.5px 1.5px at 180px 20px, rgba(226,240,255,.8), transparent),
+        radial-gradient(1px 1px at 470px 190px, rgba(255,255,255,.7), transparent);
+    animation: starTwinkleB 7s ease-in-out 1.5s infinite;
+}
+
+@keyframes starTwinkleA {
+    0%, 100% { opacity: .35; }
+    50% { opacity: 1; }
+}
+@keyframes starTwinkleB {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .starfield::before,
+    .starfield::after { animation: none; opacity: .7; }
 }
 
 /* Section Styling */

@@ -1,5 +1,5 @@
 <template>
-  <section class="ct-section" id="contact">
+  <section class="ct-section starfield" id="contact">
     <header class="ct-head" v-reveal>
       <h1 class="ct-title">Contact</h1>
       <p class="ct-lead">

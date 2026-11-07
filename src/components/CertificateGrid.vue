@@ -1,6 +1,6 @@
 
 <template>
-  <section class="cert-section" id="achievements">
+  <section class="cert-section starfield" id="achievements">
     <h1 class="cert-title " v-reveal>Achievements</h1>
 
    
@@ -45,6 +45,8 @@
     </div>
 
 
+    <!-- ย้ายไปไว้ที่ body เพื่อไม่ถูกกักอยู่ใน stacking context ของ section (starfield) -->
+    <Teleport to="body">
     <div v-if="active" class="lightbox" @click.self="close" v-reveal>
       <div class="lightbox-inner" v-reveal style="--delay:120ms">
 
@@ -74,8 +76,9 @@
         </div>
       <button class="btn ghost close-btn" @click="close">Close</button>
       </div>
-      
+
     </div>
+    </Teleport>
   </section>
 </template>
 

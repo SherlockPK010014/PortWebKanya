@@ -1,5 +1,6 @@
 <template>
   <section class="section" id="home">
+    <SpaceMagic ref="magic" />
     <h1 class="title animated-title" v-reveal>
   <span
     v-for="(ch, i) in letters"
@@ -34,7 +35,10 @@
 </template>
 
 <script>
+import SpaceMagic from './SpaceMagic.vue'
+
 export default {
+  components: { SpaceMagic },
   data() {
     return {
       isExpanded: false,
@@ -52,7 +56,26 @@ export default {
   },
   methods: {
     expandImages() {
+      if (this.isExpanded) return;
       this.isExpanded = true;
+      this.castMagic();
+    },
+    // โปรยเวทมนตร์ดาวตอนรูปบานออก: เริ่มที่รูปหลัก แล้วไล่ไปทีละรูป
+    castMagic() {
+      const magic = this.$refs.magic;
+      if (!magic?.burst) return;
+      const imgs = Array.from(this.$el.querySelectorAll('.Homepic img'));
+      const burstAt = (img, count, power) => {
+        const s = this.$el.getBoundingClientRect();
+        const r = img.getBoundingClientRect();
+        magic.burst(r.left - s.left + r.width / 2, r.top - s.top + r.height / 2, count, power);
+      };
+      burstAt(imgs[0], 45, 1.1);
+      // ลำดับรูปที่ขยายออก: ซ้ายสุด -> ขวาสุด (extra-1, extra-2, extra-3, extra-4)
+      const order = [1, 2, 3, 4];
+      order.forEach((idx, n) => {
+        setTimeout(() => imgs[idx] && burstAt(imgs[idx], 35, 0.9), 280 + n * 130);
+      });
     }
   },
   directives: {
@@ -86,6 +109,12 @@ export default {
 </script>
 
 <style scoped>
+/* ให้ canvas เวทมนตร์อวกาศอยู่หลังเนื้อหาแต่ในขอบเขตของ section */
+#home {
+  position: relative;
+  isolation: isolate;
+}
+
 .title{
   margin-top: 3%;
 }
@@ -184,26 +213,77 @@ export default {
 .expanded .extra-1 {
   left: 0;
   transform: translateX(0);
+  animation: magicIn 1.1s ease-out 0.28s both;
 }
 
 .expanded .extra-2 {
   left: 220px;
   transform: translateX(0);
+  animation: magicIn 1.1s ease-out 0.41s both;
 }
 
 .expanded .main-pic {
   left: 440px;
   transform: translateX(0);
+  animation: magicGlow 1.4s ease-out both;
 }
 
 .expanded .extra-3 {
   left: 660px;
   transform: translateX(0);
+  animation: magicIn 1.1s ease-out 0.54s both;
 }
 
 .expanded .extra-4 {
   left: 880px;
   transform: translateX(0);
+  animation: magicIn 1.1s ease-out 0.67s both;
+}
+
+/* รูปโผล่แบบเวทมนตร์: สว่างวาบ เบลอ แล้วค่อยชัด */
+@keyframes magicIn {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scale(0.55) rotate(-8deg);
+    filter: brightness(2.4) blur(8px);
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  45% {
+    opacity: 1;
+    filter: brightness(1.6) blur(1px);
+    box-shadow: 0 0 46px 10px rgba(255, 255, 255, 0.65);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0);
+    filter: none;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes magicGlow {
+  0% {
+    filter: brightness(1);
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  35% {
+    filter: brightness(1.5);
+    box-shadow: 0 0 46px 10px rgba(255, 255, 255, 0.65);
+  }
+  100% {
+    filter: none;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expanded .extra-1,
+  .expanded .extra-2,
+  .expanded .extra-3,
+  .expanded .extra-4,
+  .expanded .main-pic {
+    animation: none;
+  }
 }
 
 .reveal {

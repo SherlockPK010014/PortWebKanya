@@ -106,16 +106,25 @@ export default {
           category: 'Programming',
           items: [
             { name: 'Python' },
+            { name: 'C' },
+            { name: 'C++' },
             { name: 'Java' },
-            { name: 'JavaScript'}, 
-            { name: 'Kotlin'}
+            { name: 'Kotlin' },
+            { name: 'JavaScript' },
+            { name: 'HTML / CSS' },
+            { name: 'Vue.js', tags: ['Vite', 'Router'], desc: 'Composition API' },
+            { name: 'Next.js' },
+            { name: 'SQL' }
           ]
         },
         {
-          category: 'Web Development',
+          category: 'Remote Sensing & Cal/Val',
           items: [
-            { name: 'Vue.js', tags: ['Vite', 'Router'], desc: 'Composition API' },
-            { name: 'HTML / CSS' }
+            { name: 'Satellite Image Processing' },
+            { name: 'Digital Image Processing' },
+            { name: 'Geometric & Radiometric Calibration' },
+            { name: 'QGIS' },
+            { name: 'Rasterio' }
           ]
         },
         {

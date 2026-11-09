@@ -13,37 +13,31 @@
       </div>
 
       <div class="profile-content">
-        <br />
-        <h1 class="title" v-reveal style="--delay:120ms">About Me</h1>
-        <br />
-        <div class="profile-inner">
+        <h2 class="title" v-reveal style="--delay:120ms">About Me</h2>
+        <!-- รายการ "หัวข้อ : ค่า" -> <dl> (dt = หัวข้อ, dd = ค่า) แทน <h4> ที่ไม่ใช่หัวข้อจริง -->
+        <dl class="profile-inner">
           <!-- หน้าเว็บเป็นภาษาอังกฤษ (lang="en") บรรทัดนี้เป็นภาษาไทย ให้ screen reader อ่านเป็นภาษาไทย -->
-          <h4 lang="th" v-reveal style="--delay:200ms">
-            <span class="label">ชื่อ - นามสกุล : </span>
-            <span class="value">{{ profile.fullNameTH }}</span>
-          </h4>
-          <br />
-          <h4 v-reveal style="--delay:280ms">
-            <span class="label">Name : </span>
-            <span class="value">{{ profile.fullNameEN }}</span>
-          </h4>
-          <br />
-          <h4 v-reveal style="--delay:360ms">
-            <span class="label">Nickname : </span>
-            <span class="value">{{ profile.nickname }}</span>
-          </h4>
-          <br />
-          <h4 v-reveal style="--delay:520ms">
-            <span class="label">Major : </span>
-            <span class="value">{{profile.major}}</span>
-          </h4>
-          <br />
-          <h4 v-reveal style="--delay:600ms">
-            <span class="label">University : </span>
-            <span class="value">{{profile.university}}</span>
-          </h4>
-          <br />
-        </div>
+          <div class="row" lang="th" v-reveal style="--delay:200ms">
+            <dt class="label">ชื่อ - นามสกุล : </dt>
+            <dd class="value">{{ profile.fullNameTH }}</dd>
+          </div>
+          <div class="row" v-reveal style="--delay:280ms">
+            <dt class="label">Name : </dt>
+            <dd class="value">{{ profile.fullNameEN }}</dd>
+          </div>
+          <div class="row" v-reveal style="--delay:360ms">
+            <dt class="label">Nickname : </dt>
+            <dd class="value">{{ profile.nickname }}</dd>
+          </div>
+          <div class="row" v-reveal style="--delay:520ms">
+            <dt class="label">Major : </dt>
+            <dd class="value">{{ profile.major }}</dd>
+          </div>
+          <div class="row" v-reveal style="--delay:600ms">
+            <dt class="label">University : </dt>
+            <dd class="value">{{ profile.university }}</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
@@ -139,21 +133,25 @@ export default {
   padding: rem;
 }
 
+/* ระยะห่างเดิมได้จาก <br /> (บรรทัดว่าง 1 บรรทัด = 1.6rem × line-height 1.6 = 2.56rem)
+   ตอนนี้ใส่เป็น margin แทน: ระยะเท่าเดิม */
 .title {
   margin-left: 1rem;
+  margin-top: 2.56rem;
   font-size: 3.5rem;
-  margin-bottom: 1rem;
-  color: #38bdf8; 
+  margin-bottom: 3.56rem;  /* 1rem + บรรทัดว่าง */
+  color: #38bdf8;
   font-weight: 700;
   letter-spacing: 1px;
 }
 
-.profile-inner h4 {
+.profile-inner .row {
   margin-left: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3.56rem;  /* 1rem + บรรทัดว่าง */
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  line-height: 1.2;        /* เท่าตอนเป็น <h4> */
 }
 
 .label {
@@ -207,7 +205,7 @@ export default {
   .title { text-align: center; margin-left: 0; }
 
   /* หัวข้อกับค่ายาว ๆ (เช่นชื่อเต็ม) ขึ้นบรรทัดใหม่ได้ ไม่ล้นจอ */
-  .profile-inner h4 {
+  .profile-inner .row {
     justify-content: center;
     flex-wrap: wrap;
     margin-left: 0;

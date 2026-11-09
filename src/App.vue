@@ -1,14 +1,14 @@
-
 <template>
-  <div id="app">
-    <Header />
+  <!-- ลิงก์แรกของหน้า: ให้คนใช้คีย์บอร์ด/screen reader ข้ามเมนูไปที่เนื้อหาได้ทันที (โผล่เมื่อกด Tab) -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <Header />
+  <main id="main" tabindex="-1">
     <Home />
     <AboutMe />
     <Achievements />
     <Skill />
     <Contact />
-    
-  </div>
+  </main>
 </template>
 
 <script>
@@ -89,6 +89,25 @@ img, svg {
 button {
     font-size: inherit;
     line-height: inherit;
+}
+
+/* ซ่อนไว้นอกจอ จนกว่าจะถูกโฟกัสด้วยปุ่ม Tab */
+.skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2000;
+    padding: .8rem 1.4rem;
+    border-radius: 8px;
+    background: #38bdf8;
+    color: #031926;
+    font-weight: 700;
+    translate: 0 -200%;
+}
+.skip-link:focus {
+    translate: none;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
 }
 
 /* Starfield: ดาวระยิบระยับเป็นพื้นหลังของ section (ใส่ class="starfield" ที่ section) */

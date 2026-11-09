@@ -15,7 +15,8 @@
         </span>{{ ' ' }}
       </template>
     </h1>
-    <h2 class="typing" v-reveal>
+    <!-- คำโปรย ไม่ใช่หัวข้อของส่วนใด จึงเป็น <p> (หน้าเว็บมี <h1> เดียวคือบรรทัดบน) -->
+    <p class="typing" v-reveal>
       <template v-for="(word, wi) in subtitleWords" :key="wi">
         <span class="word">
           <span
@@ -26,8 +27,7 @@
           >{{ c.ch }}</span>
         </span>{{ ' ' }}
       </template>
-    </h2>
-    <br>
+    </p>
     <div :class="['Homepic-container', { expanded: isExpanded }]"
   @mouseover="expandImages"
   @click="expandImages"
@@ -145,6 +145,18 @@ export default {
   }
 }
 
+/* หน้าตาเท่าตอนเป็น <h2> เดิม
+   margin-bottom = .5rem (ของ h2) + 2.56rem (บรรทัดว่างของ <br> ที่เคยคั่นอยู่ = 1.6rem × line-height 1.6) */
+.typing {
+  font-size: calc(1.325rem + .9vw);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 3.06rem;
+}
+@media (min-width: 1200px) {
+  .typing { font-size: 2rem; }
+}
+
 .typing .char {
   display: inline-block;
   opacity: 0;
@@ -168,6 +180,8 @@ export default {
 .Homepic-container {
   --pic: min(200px, 100cqi / 5.4);
   --step: calc(var(--pic) * 1.1);
+  /* กัน margin-top ของ .Homepic ทะลุออกไปรวม (collapse) กับ margin ของคำโปรยด้านบน */
+  display: flow-root;
   position: relative;
   width: var(--pic);
   height: var(--pic);

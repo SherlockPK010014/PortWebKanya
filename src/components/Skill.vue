@@ -1,7 +1,7 @@
 <!-- components/SkillGlassAccordion.vue -->
 <template>
   <section class="skillga-section starfield" id="skills">
-    <h1 class="skillga-title" v-reveal>My Skills</h1>
+    <h2 class="skillga-title" v-reveal>My Skills</h2>
 
     <div class="skillga-layout">
       <!-- LEFT -->
@@ -22,7 +22,7 @@
       </aside>
 
       <!-- RIGHT -->
-      <main class="ga-right">
+      <div class="ga-right">
         <div
           v-for="(group, gi) in groups"
           :key="group.category + gi"
@@ -31,13 +31,16 @@
           :class="{ open: openIdx === gi }"
           :style="{ '--delay': (gi * 80) + 'ms' }"
         >
-          <button class="ga-acc-head" @click="toggle(gi, $event)">
-            <div class="ga-acc-title">
-              <span class="dot"></span>
-              <h4>{{ group.category }}</h4>
-            </div>
-            <span class="chev" :class="{ open: openIdx === gi }">▾</span>
-          </button>
+          <!-- รูปแบบ accordion ที่ถูกต้อง: หัวข้อครอบปุ่ม (ห้ามใส่ <h4>/<div> ไว้ในปุ่ม) -->
+          <h3 class="ga-acc-heading">
+            <button class="ga-acc-head" @click="toggle(gi, $event)">
+              <span class="ga-acc-title">
+                <span class="dot"></span>
+                <span class="ga-acc-name">{{ group.category }}</span>
+              </span>
+              <span class="chev" :class="{ open: openIdx === gi }">▾</span>
+            </button>
+          </h3>
 
           <transition name="ga-acc">
             <div v-show="openIdx === gi" class="ga-acc-body">
@@ -64,7 +67,7 @@
             </div>
           </transition>
         </div>
-      </main>
+      </div>
     </div>
   </section>
 </template>
@@ -222,10 +225,30 @@ export default {
   cursor:pointer;
 }
 
+/* <h3> ที่ครอบปุ่ม: ไม่ให้มีผลกับหน้าตา (ใช้ขนาด/น้ำหนักตัวอักษรของ element แม่ตามเดิม) */
+.ga-acc-heading{
+  margin:0;
+  font-size:inherit;
+  font-weight:inherit;
+  line-height:inherit;
+}
+
 .ga-acc-title{
   display:flex;
   gap:.6rem;
   align-items:center;
+}
+
+/* ชื่อหมวด: หน้าตาเท่าตอนเป็น <h4> เดิม */
+.ga-acc-name{
+  display:block;
+  margin-bottom:.5rem;
+  font-size:calc(1.275rem + .3vw);
+  font-weight:500;
+  line-height:1.2;
+}
+@media (min-width: 1200px){
+  .ga-acc-name{ font-size:1.5rem; }
 }
 
 .dot{

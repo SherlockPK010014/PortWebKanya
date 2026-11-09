@@ -1,7 +1,7 @@
 <template>
   <section class="ct-section starfield" id="contact">
     <header class="ct-head" v-reveal>
-      <h1 class="ct-title">Contact</h1>
+      <h2 class="ct-title">Contact</h2>
       <p class="ct-lead">
         Open to internship and job opportunities. Feel free to reach out.
       </p>

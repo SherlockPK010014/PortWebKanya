@@ -1,7 +1,7 @@
 
 <template>
   <section class="cert-section starfield" id="achievements">
-    <h1 class="cert-title " v-reveal>Achievements</h1>
+    <h2 class="cert-title" v-reveal>Achievements</h2>
 
    
     <div class="filters" v-reveal>
@@ -17,7 +17,7 @@
     </div>
 
     <div v-for="g in groups" :key="g.key" class="group">
-      <h2 class="group-title" v-reveal>{{ g.label }}</h2>
+      <h3 class="group-title" v-reveal>{{ g.label }}</h3>
 
     <div class="grid">
       <article v-for="(c, i) in g.items" :key="c.title" class="card" @click="open(c)" v-reveal
@@ -30,7 +30,7 @@
         </div>
 
         <div class="meta">
-          <h3 class="ctitle">{{ c.title }}</h3>
+          <h4 class="ctitle">{{ c.title }}</h4>
           <p class="issuer">{{ c.issuer }}</p>
 
 

@@ -94,6 +94,14 @@ import sudo from '@/assets/SUDOKU/SUDO2.png'
 import emotion from '@/assets/Emotional/emo.png'
 import D3 from '@/assets/3D/3Dgra.png'
 import D3x from '@/assets/3D/3Dsatur.png'
+import monoShopHome from '@/assets/MonoShop/home.png'
+import monoShopCatalog from '@/assets/MonoShop/product-catalog.png'
+import monoShopDetail from '@/assets/MonoShop/product-detail.png'
+import monoShopCart from '@/assets/MonoShop/cart.png'
+import monoShopOrders from '@/assets/MonoShop/my-orders.png'
+import monoShopAdminOrders from '@/assets/MonoShop/admin-orders.png'
+import monoShopProductEdit from '@/assets/MonoShop/product-edit.png'
+import monoShopOverview from '@/assets/MonoShop/system-overview.png'
 
 const globImages = (mods) =>
   Object.entries(mods)
@@ -363,6 +371,24 @@ export default [
     images : TADS_IMGS,
     verified : false,
     desc:'A Python-based system that detects and assesses oversaturation anomalies in THEOS-2 satellite imagery. Implemented saturation detection, connected-component analysis, severity assessment, batch processing, and mask generation, with both CLI and GUI interfaces to support image analysis workflows.'
+  },
+  {
+    title: 'MonoShop — Art Toy E-commerce Website',
+    category: 'project',
+    issuer: 'Vue 3 • Express • PostgreSQL',
+    tags: ['Vue 3', 'Pinia', 'Express', 'PostgreSQL'],
+    images: [
+      monoShopHome,
+      monoShopCatalog,
+      monoShopDetail,
+      monoShopCart,
+      monoShopOrders,
+      monoShopAdminOrders,
+      monoShopProductEdit,
+      monoShopOverview,
+    ],
+    verified: false,
+    desc: 'An Art Toy e-commerce web application branded as MonoCraft in the UI, built with Vue 3, Pinia, Vue Router, Bootstrap, and Axios, with an Express API and PostgreSQL database. Features include customer sign-in, product search and details, cart management, order history, and admin interfaces for order management and product editing. Screenshots show demo data through the real backend in an isolated database.',
   },
   {
     title: 'Programmer (Co-op Intern) — GISTDA Cal/Val Team',

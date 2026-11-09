@@ -17,7 +17,8 @@
         <h1 class="title" v-reveal style="--delay:120ms">About Me</h1>
         <br />
         <div class="profile-inner">
-          <h4 v-reveal style="--delay:200ms">
+          <!-- หน้าเว็บเป็นภาษาอังกฤษ (lang="en") บรรทัดนี้เป็นภาษาไทย ให้ screen reader อ่านเป็นภาษาไทย -->
+          <h4 lang="th" v-reveal style="--delay:200ms">
             <span class="label">ชื่อ - นามสกุล : </span>
             <span class="value">{{ profile.fullNameTH }}</span>
           </h4>

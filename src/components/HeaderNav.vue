@@ -18,7 +18,13 @@
     </button>
 
     <nav id="site-nav" class="navbar" :class="{ open }" aria-label="Main">
-      <a v-for="l in links" :key="l.href" :href="l.href" @click="close">{{ l.label }}</a>
+      <a
+        v-for="l in links"
+        :key="l.href"
+        :href="l.href"
+        :aria-current="current === l.href ? 'true' : null"
+        @click="close"
+      >{{ l.label }}</a>
     </nav>
   </header>
 </template>
@@ -31,6 +37,7 @@ export default {
   data() {
     return {
       open: false,
+      current: '#home', // section ที่อยู่กลางจอตอนนี้ (ไฮไลต์ลิงก์นั้นในเมนู)
       links: [
         { href: '#home', label: 'Home' },
         { href: '#about-me', label: 'About Me' },
@@ -56,6 +63,18 @@ export default {
     // เก็บความสูงจริงของ header ไว้ใน --header-h (ใช้กับ scroll-margin-top ของ section)
     this.ro = new ResizeObserver(this.syncHeight)
     this.ro.observe(this.$refs.header)
+
+    // section ไหนพาดเส้นกึ่งกลางจอ = section ปัจจุบัน
+    // (rootMargin -50%/-50% ย่อพื้นที่ตรวจเหลือแค่เส้นกลางจอ จึงมีได้ทีละ section)
+    this.$nextTick(() => {
+      this.io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) this.current = `#${e.target.id}`
+      }, { rootMargin: '-50% 0px -50% 0px' })
+      for (const l of this.links) {
+        const section = document.querySelector(l.href)
+        if (section) this.io.observe(section)
+      }
+    })
   },
   beforeUnmount() {
     this.open = false
@@ -63,6 +82,7 @@ export default {
     document.removeEventListener('keydown', this.onKeydown)
     this.mq?.removeEventListener('change', this.onBreakpoint)
     this.ro?.disconnect()
+    this.io?.disconnect()
   },
   methods: {
     close() {
@@ -141,10 +161,13 @@ export default {
   transition: width 0.3s ease;
 }
 
-.navbar a:hover {
+/* hover และลิงก์ของ section ที่อยู่บนจอตอนนี้ ใช้หน้าตาเดียวกัน */
+.navbar a:hover,
+.navbar a[aria-current="true"] {
   color: #38bdf8;
 }
-.navbar a:hover::after {
+.navbar a:hover::after,
+.navbar a[aria-current="true"]::after {
   width: 100%;
 }
 .navbar a:focus-visible {

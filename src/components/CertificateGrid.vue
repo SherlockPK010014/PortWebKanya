@@ -8,8 +8,10 @@
       <button
         v-for="g in [{ key: 'All', label: 'All' }, ...allGroups]"
         :key="g.key"
+        type="button"
         class="chip"
         :class="{ active: activeCategory === g.key }"
+        :aria-pressed="activeCategory === g.key ? 'true' : 'false'"
         @click="activeCategory = g.key"
       >
         {{ g.label }}
@@ -20,7 +22,8 @@
       <h3 class="group-title" v-reveal>{{ g.label }}</h3>
 
     <div class="grid">
-      <article v-for="(c, i) in g.items" :key="c.title" class="card" @click="open(c)" v-reveal
+      <!-- คลิกตรงไหนของการ์ดก็เปิดได้ (ที่ article) ส่วนคีย์บอร์ดใช้ปุ่มที่ชื่อผลงาน (Tab แล้ว Enter) -->
+      <article v-for="(c, i) in g.items" :key="c.title" class="card" @click="open(c, $event)" v-reveal
     :style="{ '--delay': (i * 80) + 'ms' }">
         <div class="thumb">
 
@@ -31,7 +34,9 @@
         </div>
 
         <div class="meta">
-          <h4 class="ctitle">{{ c.title }}</h4>
+          <h4 class="ctitle">
+            <button type="button" class="card-open" aria-haspopup="dialog">{{ c.title }}</button>
+          </h4>
           <p class="issuer">{{ c.issuer }}</p>
 
 
@@ -49,7 +54,13 @@
     <!-- ย้ายไปไว้ที่ body เพื่อไม่ถูกกักอยู่ใน stacking context ของ section (starfield) -->
     <Teleport to="body">
     <div v-if="active" class="lightbox" @click.self="close">
-      <div class="lightbox-inner lb-rise" style="--delay:120ms">
+      <div
+        class="lightbox-inner lb-rise"
+        style="--delay:120ms"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lb-title"
+      >
 
         <div class="viewer lb-rise" style="--delay:160ms">
           <button v-if="active.images?.length" class="nav prev" @click.stop="prev"
@@ -78,11 +89,11 @@
         </div>
 
         <div class="lb-info lb-rise" style="--delay:200ms">
-          <h3>{{ active.title }}</h3>
+          <h3 id="lb-title">{{ active.title }}</h3>
           <p class="issuer">{{ [active.issuer, active.period ?? (active.date ? formatDate(active.date) : '')].filter(Boolean).join(' • ') }}</p>
           <p class="desc" v-if="active.desc">{{ active.desc }}</p>
         </div>
-      <button class="btn ghost close-btn" @click="close">Close</button>
+      <button ref="closeBtn" type="button" class="btn ghost close-btn" @click="close">Close</button>
       </div>
 
     </div>
@@ -151,16 +162,34 @@ export default {
         : this.allGroups.filter(g => g.key === this.activeCategory)
     },
   },
+  beforeUnmount() {
+    if (this.active) this.close()
+  },
   methods: {
-    open(item) {
+    open(item, evt) {
+      if (this.active) return
+      // จำไว้ว่าเปิดจากการ์ดไหน เพื่อคืนโฟกัสให้ตอนปิด
+      this.returnFocusTo = evt?.currentTarget?.querySelector?.('.card-open') || document.activeElement
       this.active = item
       this.activeIndex = 0
-      // ดักคีย์บอร์ดลูกศร
+      // ดักคีย์บอร์ด: Esc ปิด, ลูกศรเลื่อนรูป
       window.addEventListener('keydown', this.onKey)
+      // ทำให้ส่วนอื่นของหน้า "inert": Tab/คลิก/screen reader เข้าไม่ถึง -> โฟกัสวนอยู่ใน dialog
+      // (lightbox ถูก Teleport ไปไว้ใน body จึงไม่อยู่ใน #app)
+      document.getElementById('app')?.setAttribute('inert', '')
+      // ล็อกการเลื่อนหน้าข้างหลัง
+      document.documentElement.style.overflow = 'hidden'
+      this.$nextTick(() => this.$refs.closeBtn?.focus())
     },
     close() {
+      if (!this.active) return
       this.active = null
       window.removeEventListener('keydown', this.onKey)
+      document.getElementById('app')?.removeAttribute('inert')
+      document.documentElement.style.overflow = ''
+      const target = this.returnFocusTo
+      this.returnFocusTo = null
+      this.$nextTick(() => target?.focus?.({ preventScroll: true }))
     },
     onKey(e) {
       if (!this.active) return
@@ -704,11 +733,25 @@ export default {
   transform: scale(1.02);
 }
 
-.card:focus-visible{
+/* โฟกัสด้วยคีย์บอร์ดที่ปุ่มชื่อผลงาน -> ตีกรอบทั้งการ์ด (แทนกรอบเล็ก ๆ รอบชื่อ) */
+.card:has(.card-open:focus-visible){
   outline: 2px solid #38bdf8;
   outline-offset: 2px;
   animation: card-pop 260ms cubic-bezier(.22,1,.36,1) both;
-  
+}
+.card-open:focus-visible{
+  outline: none;
+}
+
+/* ปุ่มที่ชื่อผลงาน: หน้าตาเหมือนข้อความธรรมดาเดิม (ปุ่มของเบราว์เซอร์รีเซ็ตฟอนต์/สี/การจัดวาง) */
+.card-open{
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .thumb video {

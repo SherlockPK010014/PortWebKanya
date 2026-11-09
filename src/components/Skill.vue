@@ -5,7 +5,7 @@
 
     <div class="skillga-layout">
       <!-- LEFT -->
-      <aside class="ga-left ga-card" v-reveal>
+      <div class="ga-left ga-card" v-reveal>
         <div class="ga-photo">
           <transition name="fade-swap" mode="out-in">
             <img
@@ -19,7 +19,7 @@
         </div>
         <h3 class="ga-name">Kanyasiri K.</h3>
         <p class="ga-role">Computer Science • Student</p>
-      </aside>
+      </div>
 
       <!-- RIGHT -->
       <div class="ga-right">
@@ -33,7 +33,14 @@
         >
           <!-- รูปแบบ accordion ที่ถูกต้อง: หัวข้อครอบปุ่ม (ห้ามใส่ <h4>/<div> ไว้ในปุ่ม) -->
           <h3 class="ga-acc-heading">
-            <button class="ga-acc-head" @click="toggle(gi, $event)">
+            <button
+              type="button"
+              class="ga-acc-head"
+              :id="`skill-head-${gi}`"
+              :aria-expanded="openIdx === gi ? 'true' : 'false'"
+              :aria-controls="`skill-panel-${gi}`"
+              @click="toggle(gi)"
+            >
               <span class="ga-acc-title">
                 <span class="dot" aria-hidden="true"></span>
                 <span class="ga-acc-name">{{ group.category }}</span>
@@ -43,7 +50,13 @@
           </h3>
 
           <transition name="ga-acc">
-            <div v-show="openIdx === gi" class="ga-acc-body">
+            <div
+              v-show="openIdx === gi"
+              class="ga-acc-body"
+              :id="`skill-panel-${gi}`"
+              role="region"
+              :aria-labelledby="`skill-head-${gi}`"
+            >
               <!-- SKILL GRID -->
               <ul class="ga-skill-grid">
                 <li
@@ -143,8 +156,8 @@ export default {
     }
   },
   methods: {
-    toggle(i, evt) {
-      evt?.currentTarget?.blur?.()
+    // ไม่ blur() ปุ่มแล้ว: คนใช้คีย์บอร์ดจะได้ไม่หลุดโฟกัส (วงโฟกัสแสดงเฉพาะตอนใช้คีย์บอร์ดอยู่แล้ว)
+    toggle(i) {
       this.openIdx = this.openIdx === i ? -1 : i
     }
   }

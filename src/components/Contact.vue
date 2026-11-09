@@ -9,7 +9,7 @@
 
     <div class="ct-wrap">
       <!-- Profile / main CTA -->
-      <aside class="ct-profile" v-reveal style="--delay:80ms">
+      <div class="ct-profile" v-reveal style="--delay:80ms">
         <div class="ct-avatar">
           <img :src="pic" alt="" />
         </div>
@@ -35,7 +35,7 @@
             <svg class="ct-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" v-html="ICONS[s.icon]"></svg>
           </a>
         </div>
-      </aside>
+      </div>
 
       <!-- Channels -->
       <div class="ct-channels">
@@ -69,9 +69,12 @@
       </div>
     </div>
 
+    <!-- toast ที่มองเห็น (เกิดขึ้นพร้อมข้อความ screen reader มักไม่อ่าน จึงซ่อนจาก screen reader) -->
     <transition name="ct-toast">
-      <div v-if="toast" class="ct-toast" role="status">{{ toast }}</div>
+      <div v-if="toast" class="ct-toast" aria-hidden="true">{{ toast }}</div>
     </transition>
+    <!-- live region ที่อยู่ในหน้าตลอด: พอข้อความเปลี่ยน screen reader จะอ่านให้ฟัง -->
+    <div class="sr-only" role="status" aria-live="polite">{{ toast }}</div>
   </section>
 </template>
 

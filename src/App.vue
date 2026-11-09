@@ -42,13 +42,38 @@ export default {
     box-sizing: border-box;
     text-decoration: none;
     border: none;
-    outline: none;
     font-family: 'IBM Plex Sans Thai',serif;
 }
 
 html {
     font-size: 62.5%;
     scroll-behavior: smooth;
+    /* จองที่ของ scrollbar ไว้เสมอ: ตอนล็อกการเลื่อน (เปิด lightbox) หน้าเว็บจะไม่กระตุก */
+    scrollbar-gutter: stable;
+}
+
+/* วงโฟกัสสำหรับคนใช้คีย์บอร์ด (เดิม * { outline: none } ทำให้มองไม่เห็นว่าโฟกัสอยู่ที่ไหน)
+   :focus-visible จะไม่แสดงตอนคลิกด้วยเมาส์ */
+:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 2px;
+}
+/* <main> รับโฟกัสจาก skip link — ไม่ต้องตีกรอบทั้งหน้า */
+main:focus {
+    outline: none;
+}
+
+/* ซ่อนจากสายตา แต่ screen reader ยังอ่านได้ */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 body {

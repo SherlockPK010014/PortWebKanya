@@ -1,6 +1,5 @@
-
-// main.js
 import { createApp } from 'vue'
 import App from './App.vue'
+import reveal from './directives/reveal'
 
-createApp(App).mount('#app')
+createApp(App).directive('reveal', reveal).mount('#app')

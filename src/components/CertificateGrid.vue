@@ -47,10 +47,10 @@
 
     <!-- ย้ายไปไว้ที่ body เพื่อไม่ถูกกักอยู่ใน stacking context ของ section (starfield) -->
     <Teleport to="body">
-    <div v-if="active" class="lightbox" @click.self="close" v-reveal>
-      <div class="lightbox-inner" v-reveal style="--delay:120ms">
+    <div v-if="active" class="lightbox" @click.self="close">
+      <div class="lightbox-inner lb-rise" style="--delay:120ms">
 
-        <div class="viewer" v-reveal style="--delay:160ms">
+        <div class="viewer lb-rise" style="--delay:160ms">
           <button v-if="active.images?.length" class="nav prev" @click.stop="prev"
             aria-label="Previous image">&#10094;</button>
 
@@ -69,7 +69,7 @@
           </div>
         </div>
 
-        <div class="lb-info" v-reveal style="--delay:200ms">
+        <div class="lb-info lb-rise" style="--delay:200ms">
           <h3>{{ active.title }}</h3>
           <p class="issuer">{{ [active.issuer, active.period ?? (active.date ? formatDate(active.date) : '')].filter(Boolean).join(' • ') }}</p>
           <p class="desc" v-if="active.desc">{{ active.desc }}</p>
@@ -109,36 +109,6 @@ const CATEGORY_LABELS = {
 }
 
 export default {
-  directives: {
-  reveal: {
-    mounted(el) {
-
-      el.classList.add('reveal');
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('in-view'); 
-            } else {
-              e.target.classList.remove('in-view'); 
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
-      );
-
-      el.__io = io;
-      io.observe(el);
-    },
-    unmounted(el) {
-      if (el.__io) {
-        el.__io.disconnect();
-        delete el.__io;
-      }
-    }
-  }
-},
-
   name: 'CertificateGrid',
   data() {
     
@@ -174,10 +144,6 @@ export default {
     },
   },
   methods: {
-
-    coverOf(item) {
-      return item.images?.[0] ?? item.image
-    },
     open(item) {
       this.active = item
       this.activeIndex = 0
@@ -194,12 +160,6 @@ export default {
       if (e.key === 'ArrowRight') this.next()
       if (e.key === 'ArrowLeft') this.prev()
     },
-    currentImage() {
-
-      if (!this.active) return ''
-      if (this.active.images?.length) return this.active.images[this.activeIndex]
-      return this.active.image
-    },
     next() {
       if (!this.active?.images?.length) return
       this.activeIndex = (this.activeIndex + 1) % this.active.images.length
@@ -208,10 +168,6 @@ export default {
       if (!this.active?.images?.length) return
       this.activeIndex =
         (this.activeIndex - 1 + this.active.images.length) % this.active.images.length
-    },
-    go(i) {
-      if (!this.active?.images?.length) return
-      this.activeIndex = i
     },
     formatDate(iso) {
       try {
@@ -397,12 +353,24 @@ export default {
 }
 
 .card {
+  /* layout เดิมได้มาจาก .card ของ Bootstrap */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: break-word;
   background: rgba(255, 255, 255, .05);
   border: 1px solid rgba(255, 255, 255, .1);
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  /* opacity/translate มาจาก v-reveal */
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease,
+    opacity .7s ease var(--delay, 0ms),
+    translate .7s ease var(--delay, 0ms);
 }
 
 .thumb {
@@ -519,6 +487,23 @@ export default {
   }
 }
 
+/* ส่วนต่าง ๆ ของ lightbox ค่อย ๆ ลอยขึ้นตามลำดับตอนเปิด (หน่วงด้วย --delay) */
+.lb-rise {
+  animation: lbRise .7s ease var(--delay, 0ms) both;
+}
+
+@keyframes lbRise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox,
+  .lb-rise { animation: none; }
+}
+
 .lightbox-inner{
   position: relative;   
   display: grid;
@@ -609,6 +594,8 @@ export default {
   cursor: pointer;
   font-weight: 800;
   font-size: 1.5rem;
+  line-height: 1.5;        /* เดิมได้มาจาก .btn ของ Bootstrap */
+  vertical-align: middle;
   transition: filter .2s ease, transform .15s ease;
   text-decoration: none;
   display: inline-flex;
@@ -619,12 +606,6 @@ export default {
 .btn:hover {
   filter: brightness(1.06);
   transform: translateY(-1px);
-}
-
-.btn.outline {
-  background: transparent;
-  color: #93c5fd;
-  border: 1px solid rgba(147, 197, 253, .55);
 }
 
 .btn.ghost {
@@ -650,20 +631,6 @@ export default {
     font-size: 1.05rem;
   }
 }
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-  transition-delay: var(--delay, 0ms); 
-  will-change: opacity, transform;
-}
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .card{ will-change: transform, box-shadow; }
 
 

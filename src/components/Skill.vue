@@ -75,26 +75,6 @@ import picAlt from '@/assets/kanya_hover.png'
 
 export default {
   name: 'SkillGlassAccordion',
-  directives: {
-    reveal: {
-      mounted(el) {
-        el.classList.add('reveal')
-        const io = new IntersectionObserver(
-          (ents) => ents.forEach(e =>
-            e.isIntersecting
-              ? e.target.classList.add('in-view')
-              : e.target.classList.remove('in-view')
-          ),
-          { threshold: 0.12 }
-        )
-        el.__io = io
-        io.observe(el)
-      },
-      unmounted(el) {
-        el.__io?.disconnect()
-      }
-    }
-  },
   data() {
     return {
       pic,
@@ -316,16 +296,5 @@ export default {
 .ga-desc{
   font-size:.9rem;
   color:#cbd5e1;
-}
-
-/* REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(16px);
-  transition:.7s;
-}
-.reveal.in-view{
-  opacity:1;
-  transform:none;
 }
 </style>

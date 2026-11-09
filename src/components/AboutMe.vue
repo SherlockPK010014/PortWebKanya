@@ -1,7 +1,7 @@
 <template>
   <section class="section starfield" id="about-me">
     <div class="about-me-container">
-      <div class="Pic-ABU reveal" v-reveal style="--delay:0ms">
+      <div class="Pic-ABU" v-reveal style="--delay:0ms">
         <div class="card">
           <div class="card-face front">
             <img src="@/assets/34285.jpg" alt="abu-pic-front" />
@@ -14,30 +14,30 @@
 
       <div class="profile-content">
         <br />
-        <h1 class="title reveal" v-reveal style="--delay:120ms">About Me</h1>
+        <h1 class="title" v-reveal style="--delay:120ms">About Me</h1>
         <br />
         <div class="profile-inner">
-          <h4 class="reveal" v-reveal style="--delay:200ms">
+          <h4 v-reveal style="--delay:200ms">
             <span class="label">ชื่อ - นามสกุล : </span>
             <span class="value">{{ profile.fullNameTH }}</span>
           </h4>
           <br />
-          <h4 class="reveal" v-reveal style="--delay:280ms">
+          <h4 v-reveal style="--delay:280ms">
             <span class="label">Name : </span>
             <span class="value">{{ profile.fullNameEN }}</span>
           </h4>
           <br />
-          <h4 class="reveal" v-reveal style="--delay:360ms">
+          <h4 v-reveal style="--delay:360ms">
             <span class="label">Nickname : </span>
             <span class="value">{{ profile.nickname }}</span>
           </h4>
           <br />
-          <h4 class="reveal" v-reveal style="--delay:520ms">
+          <h4 v-reveal style="--delay:520ms">
             <span class="label">Major : </span>
             <span class="value">{{profile.major}}</span>
           </h4>
           <br />
-          <h4 class="reveal" v-reveal style="--delay:600ms">
+          <h4 v-reveal style="--delay:600ms">
             <span class="label">University : </span>
             <span class="value">{{profile.university}}</span>
           </h4>
@@ -52,36 +52,10 @@
 <script>
 import profileData from '@/data/db.json'
 
-const revealDirective = {
-  mounted(el) {
-    el.classList.add('reveal')
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in-view')
-        } else {
-          // พอเลื่อนออกจากจอ ให้กลับไปซ่อน
-          e.target.classList.remove('in-view')
-        }
-      })
-    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' })
-
-    io.observe(el)
-  }
-}
-
-
 export default {
   name: 'AboutMe',
-  directives: { reveal: revealDirective },
   data() {
-    return { profile: null, originalProfile: null }
-  },
-  created() {
-    const payload = profileData
-    this.profile = { ...payload }
-    this.originalProfile = { ...payload }
+    return { profile: { ...profileData } }
   }
 }
 </script>
@@ -138,6 +112,10 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  /* กรอบพื้นขาว (เดิมได้มาจาก .card ของ Bootstrap) */
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .176);
+  border-radius: .375rem;
   transform-style: preserve-3d;
   animation: flip 8s infinite;
 }
@@ -211,28 +189,4 @@ export default {
   .profile-content { text-align: center; }
   .profile-inner h4 { justify-content: center; }
 }
-.reveal{
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-  transition-delay: var(--delay, 0ms);
-  will-change: opacity, transform;
-}
-
-.reveal.in-view{
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce){
-  .reveal,
-  .reveal.in-view{
-    opacity:1 !important;
-    transform:none !important;
-    transition:none !important;
-  }
-}
-
 </style>

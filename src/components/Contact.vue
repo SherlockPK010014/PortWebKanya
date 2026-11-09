@@ -93,28 +93,6 @@ const ICONS = {
 export default {
   name: 'ContactSection',
 
-  directives: {
-    reveal: {
-      mounted(el) {
-        el.classList.add('reveal')
-        const io = new IntersectionObserver(
-          entries => {
-            entries.forEach(e => {
-              if (e.isIntersecting) e.target.classList.add('in-view')
-              else e.target.classList.remove('in-view')
-            })
-          },
-          { threshold: 0.12 }
-        )
-        el.__io = io
-        io.observe(el)
-      },
-      unmounted(el) {
-        el.__io?.disconnect()
-      }
-    }
-  },
-
   data() {
     return {
       pic,
@@ -312,7 +290,13 @@ export default {
   border-radius: 18px;
   background: rgba(255, 255, 255, .05);
   border: 1px solid rgba(255, 255, 255, .1);
-  transition: border-color .25s ease, background .25s ease, transform .25s ease;
+  /* opacity/translate มาจาก v-reveal */
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    transform .25s ease,
+    opacity .7s ease var(--delay, 0ms),
+    translate .7s ease var(--delay, 0ms);
 }
 .ct-tile:hover {
   border-color: rgba(56, 189, 248, .45);
@@ -405,18 +389,6 @@ export default {
 .ct-copy:focus-visible {
   outline: 2px solid #38bdf8;
   outline-offset: 3px;
-}
-
-/* ===== Reveal ===== */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .7s ease, transform .7s ease;
-  transition-delay: var(--delay, 0ms);
-}
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* ===== Toast ===== */

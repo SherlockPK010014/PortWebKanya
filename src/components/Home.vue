@@ -78,32 +78,6 @@ export default {
       });
     }
   },
-  directives: {
-    reveal: {
-      mounted(el) {
-       
-        el.classList.add('reveal');
-
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add('in-view');   // โผล่
-              } else {
-                e.target.classList.remove('in-view'); // ซ่อนเมื่อพ้นจอ (เล่นซ้ำได้)
-              }
-            });
-          },
-          {
-            threshold: 0.15,
-            rootMargin: '0px 0px -10% 0px',
-          }
-        );
-
-        io.observe(el);
-      },
-    },
-  },
 };
 
 </script>
@@ -155,7 +129,11 @@ export default {
   width: 200px;
   height: 200px;
   margin: 0 auto;
-  transition: width 0.3s ease; 
+  /* opacity/translate มาจาก v-reveal */
+  transition:
+    width 0.3s ease,
+    opacity .7s ease var(--delay, 0ms),
+    translate .7s ease var(--delay, 0ms);
 }
 
 .Homepic-container.expanded {
@@ -167,6 +145,12 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+/* ย้ายมาจาก App.vue (global .Homepic img) — เหลือแค่ส่วนที่มีผลจริง */
+.Homepic img {
+  border-radius: 20%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .main-pic {
@@ -284,22 +268,6 @@ export default {
   .expanded .main-pic {
     animation: none;
   }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-  /* ถ้าอยากหน่วงแต่ละบล็อก ใส่ inline style: style="--delay:200ms" ได้ */
-  transition-delay: var(--delay, 0ms);
-  will-change: opacity, transform;
-}
-
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 </style>

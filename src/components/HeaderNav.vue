@@ -17,22 +17,17 @@ export default {
 }
 </script>
 <style scoped>
-  a.logo {
-  text-decoration: none;
-  
+/* เดิมได้มาจาก .navbar ของ Bootstrap */
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 0;
 }
-.navbar a,
-.navbar a:link,
-.navbar a:visited,
-.navbar a:hover,
-.navbar a:active,
-.navbar a:focus,
-.navbar a:focus-visible {
-  text-decoration: none !important;        
-  text-decoration-color: transparent !important;
-  border: none !important;                 
-  outline: none;                         
-  box-shadow: none;
+
+.navbar a {
   color: #e2e8f0;
   position: relative;
   padding: 0.25rem 0;

@@ -5,7 +5,6 @@
     <Home />
     <AboutMe />
     <Achievements />
-    <!-- <Education /> -->
     <Skill />
     <Contact />
     
@@ -59,6 +58,39 @@ body {
     font-size: 1.6rem;
 }
 
+/* ค่าพื้นฐานที่เดิมได้มาจาก Bootstrap reboot (ถอด Bootstrap ออกแล้ว)
+   เก็บไว้เฉพาะส่วนที่ดีไซน์ของเว็บพึ่งอยู่จริง เพื่อให้หน้าตาเหมือนเดิม */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+h1 { font-size: calc(1.375rem + 1.5vw); }
+h2 { font-size: calc(1.325rem + .9vw); }
+h3 { font-size: calc(1.3rem + .6vw); }
+h4 { font-size: calc(1.275rem + .3vw); }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+@media (min-width: 1200px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.75rem; }
+    h4 { font-size: 1.5rem; }
+}
+
+p, ul, ol {
+    margin-bottom: 1rem;
+}
+
+img, svg {
+    vertical-align: middle;
+}
+
+button {
+    font-size: inherit;
+    line-height: inherit;
+}
+
 /* Header Section */
 header.logohead {
     position: fixed;
@@ -92,12 +124,6 @@ nav.navbar a {
     color: rgb(148, 137, 121);
     margin-left: 3rem;
     transition: 0.3s ease;
-}
-
-nav.navbar a:hover,
-nav.navbar a.active {
-    color: rgb(223, 100, 77);
-    border-bottom: 2px solid rgb(223, 100, 77);
 }
 
 /* Starfield: ดาวระยิบระยับเป็นพื้นหลังของ section (ใส่ class="starfield" ที่ section) */
@@ -163,6 +189,31 @@ nav.navbar a.active {
     .starfield::after { animation: none; opacity: .7; }
 }
 
+/* v-reveal (src/directives/reveal.js): โผล่ขึ้นเมื่อเลื่อนมาถึง
+   ใช้ property `translate` แยกจาก `transform` เพื่อไม่ชนกับ hover/active ของแต่ละ component
+   หน่วงเวลาด้วย inline style: style="--delay:200ms" */
+.reveal {
+    opacity: 0;
+    translate: 0 16px;
+    transition:
+        opacity .7s ease var(--delay, 0ms),
+        translate .7s ease var(--delay, 0ms);
+    will-change: opacity, translate;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    translate: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        translate: none;
+        transition: none;
+    }
+}
+
 /* Section Styling */
 section {
     padding: 8rem 10%;
@@ -175,58 +226,6 @@ section .title {
     font-weight: 700;
     margin-bottom: 3rem;
     color: rgb(253, 247, 244);
-    transition:cubic-bezier();
-}
-
-.Intro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 4rem;
-}
-
-.Homepic img {
-    width: 300px;
-    height: 300px;
-    border-radius: 20%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    object-fit: cover;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
-}
-
-.Homepic img:hover {
-    transform: scale(1.1) rotate(3deg); /* ขยับได้ด้วย */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); 
-   
-}
-
-
-
-
-/* Future Section */
-.future h2 {
-    font-size: 2.5rem;
-    color: rgb(253, 247, 244);
-    margin-bottom: 2rem;
-}
-
-.future h4 {
-    font-size: 2rem;
-    color: rgb(223, 208, 184);
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-/* Contact Section */
-.My_contact {
-    font-size: 1.8rem;
-    color: rgb(223, 208, 184);
-    line-height: 2;
-}
-
-.My_contact h4 {
-    margin: 1rem 0;
 }
 
 /* Responsive Design */
@@ -250,19 +249,6 @@ section .title {
 
     nav.navbar a {
         margin: 1rem 0;
-    }
-
-    .Intro {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .edu_01,
-    .edu_02,
-    .edu_03,
-    .edu_04 {
-        flex-direction: column;
-        text-align: center;
     }
 }
 

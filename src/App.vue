@@ -91,41 +91,6 @@ button {
     line-height: inherit;
 }
 
-/* Header Section */
-header.logohead {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #142d4c;
-    padding: 1rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-header .logo {
-    font-size: 3rem;
-    font-weight: 700;
-    color: rgb(253, 247, 244);
-    transition: transform 0.3s ease;
-}
-
-header .logo:hover {
-    transform: scale(1.1);
-}
-
-
-
-nav.navbar a {
-    font-size: 1.8rem;
-    color: rgb(148, 137, 121);
-    margin-left: 3rem;
-    transition: 0.3s ease;
-}
-
 /* Starfield: ดาวระยิบระยับเป็นพื้นหลังของ section (ใส่ class="starfield" ที่ section) */
 .starfield {
     position: relative;
@@ -219,6 +184,8 @@ section {
     padding: 8rem 10%;
     min-height: 100vh;
     text-align: center;
+    /* กดลิงก์ในเมนูแล้ว section ไม่ไปมุดอยู่ใต้ header (--header-h ตั้งจาก HeaderNav.vue) */
+    scroll-margin-top: var(--header-h, 7rem);
 }
 
 section .title {
@@ -233,32 +200,11 @@ section .title {
     html {
         font-size: 55%;
     }
-
-    
-
-    header.logohead {
-        flex-direction: column;
-        padding: 1.5rem;
-    }
-
-    nav.navbar {
-        display: flex;
-        flex-direction: column;
-        margin-top: 1rem;
-    }
-
-    nav.navbar a {
-        margin: 1rem 0;
-    }
 }
 
 @media (max-width: 480px) {
     html {
         font-size: 50%;
-    }
-
-    header .logo {
-        font-size: 2.5rem;
     }
 
     section .title {

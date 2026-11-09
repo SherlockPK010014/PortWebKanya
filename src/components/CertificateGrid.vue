@@ -348,7 +348,8 @@ export default {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  /* min(…, 100%) กันการ์ดล้นจอที่แคบกว่า 340px */
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
   gap: 1.8rem;
 }
 
@@ -468,7 +469,7 @@ export default {
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 1100; /* อยู่เหนือ header (z-index 1000) */
   background: rgba(0,0,0,.65);
   display: grid;
   place-items: center;
@@ -615,8 +616,44 @@ export default {
 }
 
 @media (max-width: 900px) {
+  /* คอลัมน์เดียว: รูปอยู่บน ข้อความอยู่ล่าง และเลื่อนดูได้ถ้ายาวเกินจอ (เดิม overflow:hidden ตัดข้อความทิ้ง) */
   .lightbox-inner {
-    grid-template-columns: 1fr;
+    /* minmax(0, …) ไม่ให้แถวรูปย่อยาว ๆ ดันความกว้างจนล้นจอ */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .viewer { grid-row: 1; grid-column: 1; }
+  .lb-info {
+    grid-row: 2;
+    grid-column: 1;
+    margin: 0;
+    padding: 1.6rem 1.6rem 6rem; /* เว้นที่ด้านล่างให้ปุ่ม Close ไม่ทับบรรทัดสุดท้าย */
+  }
+
+  .viewer img { max-height: 50vh; }
+
+  /* รูปย่อเรียงแถวเดียว ปัดซ้าย-ขวาได้ (เดิมตัดขึ้นหลายแถว) */
+  .thumbs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: .4rem;
+  }
+  .thumb-btn { flex: 0 0 auto; }
+
+  /* ปุ่ม Close ไม่ทับข้อความ และติดขอบล่างไว้ตลอดตอนเลื่อน
+     (sticky ขยับได้แค่ในพื้นที่ grid ของตัวเอง จึงให้คร่อมทั้ง 2 แถว แล้วชิดล่างขวา) */
+  .close-btn {
+    position: sticky;
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    align-self: end;
+    justify-self: end;
+    right: auto;
+    bottom: 14px;
+    margin: 0 14px 14px 0;
   }
 
   .lb-info h3 {

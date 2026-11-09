@@ -185,8 +185,32 @@ export default {
 
 @media (max-width: 900px) {
   .about-me-container { flex-direction: column; align-items: center; }
-  .title { text-align: center; }
-  .profile-content { text-align: center; }
-  .profile-inner h4 { justify-content: center; }
+
+  /* เดิม flex:1 ในแนวตั้งทำให้กรอบรูปสูงเหลือ 2px (รูปหายไป) และ min-width 350px + margin-left ทำให้ล้นจอ
+     -> ใช้ขนาด 350×460 เท่าเดิม แต่ย่อตามจอได้ และอยู่กึ่งกลาง */
+  .Pic-ABU {
+    flex: none;
+    margin: 1rem auto;
+    min-width: 0;
+    width: min(350px, 100%);
+    height: auto;
+    aspect-ratio: 350 / 460;
+  }
+
+  .profile-content {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+  .title { text-align: center; margin-left: 0; }
+
+  /* หัวข้อกับค่ายาว ๆ (เช่นชื่อเต็ม) ขึ้นบรรทัดใหม่ได้ ไม่ล้นจอ */
+  .profile-inner h4 {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 0;
+  }
+  .value { max-width: 100%; }
 }
 </style>

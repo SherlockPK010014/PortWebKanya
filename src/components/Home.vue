@@ -1,27 +1,36 @@
 <template>
   <section class="section" id="home">
     <SpaceMagic ref="magic" />
+    <!-- \u0E41\u0E22\u0E01\u0E40\u0E1B\u0E47\u0E19 "\u0E04\u0E33" (\u0E2B\u0E49\u0E32\u0E21\u0E15\u0E31\u0E14\u0E01\u0E25\u0E32\u0E07\u0E04\u0E33) \u0E41\u0E25\u0E49\u0E27\u0E04\u0E48\u0E2D\u0E22\u0E40\u0E1B\u0E47\u0E19\u0E15\u0E31\u0E27\u0E2D\u0E31\u0E01\u0E29\u0E23 (\u0E44\u0E27\u0E49\u0E17\u0E33\u0E2D\u0E19\u0E34\u0E40\u0E21\u0E0A\u0E31\u0E19\u0E17\u0E35\u0E25\u0E30\u0E15\u0E31\u0E27)
+         \u0E0A\u0E48\u0E2D\u0E07\u0E27\u0E48\u0E32\u0E07 {{ ' ' }} \u0E23\u0E30\u0E2B\u0E27\u0E48\u0E32\u0E07\u0E04\u0E33\u0E17\u0E33\u0E43\u0E2B\u0E49\u0E08\u0E2D\u0E41\u0E04\u0E1A\u0E02\u0E36\u0E49\u0E19\u0E1A\u0E23\u0E23\u0E17\u0E31\u0E14\u0E43\u0E2B\u0E21\u0E48\u0E44\u0E14\u0E49 -->
     <h1 class="title animated-title" v-reveal>
-  <span
-    v-for="(ch, i) in letters"
-    :key="i"
-    :style="{ animationDelay: (i * 0.05) + 's' }"
-  >
-    {{ ch === ' ' ? '\u00A0' : ch }}
-  </span>
-</h1>
+      <template v-for="(word, wi) in titleWords" :key="wi">
+        <span class="word">
+          <span
+            v-for="c in word"
+            :key="c.i"
+            class="char"
+            :style="{ animationDelay: (c.i * 0.05) + 's' }"
+          >{{ c.ch }}</span>
+        </span>{{ ' ' }}
+      </template>
+    </h1>
     <h2 class="typing" v-reveal>
-  <span
-    v-for="(ch, i) in lettersH2"
-    :key="i"
-    :style="{ animationDelay: (i * 0.15) + 's' }"
-  >
-    {{ ch === ' ' ? '\u00A0' : ch }}
-  </span>
-</h2>
+      <template v-for="(word, wi) in subtitleWords" :key="wi">
+        <span class="word">
+          <span
+            v-for="c in word"
+            :key="c.i"
+            class="char"
+            :style="{ animationDelay: (c.i * 0.15) + 's' }"
+          >{{ c.ch }}</span>
+        </span>{{ ' ' }}
+      </template>
+    </h2>
     <br>
     <div :class="['Homepic-container', { expanded: isExpanded }]"
   @mouseover="expandImages"
+  @click="expandImages"
   v-reveal>
       <div class="Homepic">
         <img src="@/assets/34264.jpg" alt="MainProfile-pic" class="main-pic" />
@@ -37,6 +46,23 @@
 <script>
 import SpaceMagic from './SpaceMagic.vue'
 
+// "HELLO, ME" -> [[{ch:'H',i:0}, ...], [{ch:'M',i:7}, ...]]
+// i คือลำดับตัวอักษรในข้อความเต็ม (นับช่องว่างด้วย) เพื่อให้จังหวะอนิเมชันเท่าเดิม
+function splitWords(text) {
+  const words = []
+  let current = []
+  ;[...text].forEach((ch, i) => {
+    if (ch === ' ') {
+      if (current.length) words.push(current)
+      current = []
+    } else {
+      current.push({ ch, i })
+    }
+  })
+  if (current.length) words.push(current)
+  return words
+}
+
 export default {
   components: { SpaceMagic },
   data() {
@@ -47,11 +73,11 @@ export default {
     };
   },
   computed: {
-    letters() {
-      return this.text.split('');
+    titleWords() {
+      return splitWords(this.text);
     },
-    lettersH2() {
-      return this.text2.split("");
+    subtitleWords() {
+      return splitWords(this.text2);
     }
   },
   methods: {
@@ -93,13 +119,19 @@ export default {
   margin-top: 3%;
 }
 
+/* overflow:hidden ทำให้ตัวอักษรดูเหมือน "โผล่ขึ้นจากขอบ" ตอนเริ่มอนิเมชัน */
 .animated-title {
   display: inline-block;
   overflow: hidden;
+}
+
+/* คำหนึ่งคำห้ามถูกตัดขึ้นบรรทัดใหม่ — ตัดได้เฉพาะช่องว่างระหว่างคำ */
+.word {
+  display: inline-block;
   white-space: nowrap;
 }
 
-.animated-title span {
+.animated-title .char {
   display: inline-block;
   opacity: 0;
   transform: translateY(20px);
@@ -113,7 +145,7 @@ export default {
   }
 }
 
-.typing span {
+.typing .char {
   display: inline-block;
   opacity: 0;
   animation: blinkIn 0.6s forwards;
@@ -124,20 +156,32 @@ export default {
   50%  { opacity: 1; }
   100% { opacity: 1; }
 }
+/* ===== รูป 5 รูปที่บานออก =====
+   ขนาดคิดจากความกว้างของ section (cqi = 1% ของความกว้าง #home)
+   --pic  ขนาดรูป: จอกว้างได้ 200px เท่าเดิม จอแคบลงจะย่อตาม
+   --step ระยะจากรูปหนึ่งถึงรูปถัดไป (รูป + ช่องว่าง 10%)
+   แถวเต็ม = 5 รูป + 4 ช่องว่าง = 5.4 × --pic (= 1080px บนจอกว้าง) */
+#home {
+  container-type: inline-size;
+}
+
 .Homepic-container {
+  --pic: min(200px, 100cqi / 5.4);
+  --step: calc(var(--pic) * 1.1);
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: var(--pic);
+  height: var(--pic);
   margin: 0 auto;
   /* opacity/translate มาจาก v-reveal */
   transition:
     width 0.3s ease,
+    height 0.3s ease,
     opacity .7s ease var(--delay, 0ms),
     translate .7s ease var(--delay, 0ms);
 }
 
 .Homepic-container.expanded {
-  width: 1080px; 
+  width: calc(var(--pic) * 5.4);
 }
 
 .Homepic {
@@ -147,44 +191,40 @@ export default {
   height: 100%;
 }
 
-/* ย้ายมาจาก App.vue (global .Homepic img) — เหลือแค่ส่วนที่มีผลจริง */
+/* ก่อนบาน: ทุกรูปซ้อนกันอยู่กลาง container (เห็นแค่รูปหลัก) */
 .Homepic img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--pic);
+  height: var(--pic);
+  object-fit: cover;
+  transform: translateX(-50%);
   border-radius: 20%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-.main-pic {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
   transition: all 0.3s ease;
 }
+
+.main-pic { z-index: 2; }
 
 .extra-1,
 .extra-2,
 .extra-3,
 .extra-4 {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
   opacity: 0;
-  transition: all 0.3s ease;
   z-index: 1;
-  top: 0;
 }
 
-.extra-1,
-.extra-2,
-.extra-3,
-.extra-4 {
-  left: 50%;
-  transform: translateX(-50%);
+/* ลำดับในแถว: extra-1, extra-2, รูปหลัก, extra-3, extra-4 */
+.extra-1  { --i: 0; }
+.extra-2  { --i: 1; }
+.main-pic { --i: 2; }
+.extra-3  { --i: 3; }
+.extra-4  { --i: 4; }
+
+.expanded .Homepic img {
+  left: calc(var(--i) * var(--step));
+  transform: translateX(0);
 }
 
 .expanded .extra-1,
@@ -194,34 +234,41 @@ export default {
   opacity: 1;
 }
 
-.expanded .extra-1 {
-  left: 0;
-  transform: translateX(0);
-  animation: magicIn 1.1s ease-out 0.28s both;
-}
+.expanded .main-pic { animation: magicGlow 1.4s ease-out both; }
+.expanded .extra-1  { animation: magicIn 1.1s ease-out 0.28s both; }
+.expanded .extra-2  { animation: magicIn 1.1s ease-out 0.41s both; }
+.expanded .extra-3  { animation: magicIn 1.1s ease-out 0.54s both; }
+.expanded .extra-4  { animation: magicIn 1.1s ease-out 0.67s both; }
 
-.expanded .extra-2 {
-  left: 220px;
-  transform: translateX(0);
-  animation: magicIn 1.1s ease-out 0.41s both;
-}
+/* จอแคบ: แถวละ 5 รูปจะเล็กเกินไป -> จัดเป็นคอลลาจ
+   รูปหลักใหญ่อยู่บน + รูปเสริม 4 รูปเป็นตาราง 2×2 ข้างล่าง (กว้างเท่ารูปหลัก) */
+@media (max-width: 700px) {
+  .Homepic-container {
+    --pic: min(200px, 100cqi);
+    --gap: 10px;
+    --tile: calc((var(--pic) - var(--gap)) / 2);
+  }
+  .Homepic-container.expanded {
+    width: var(--pic);
+    height: calc(var(--pic) + 2 * var(--tile) + 2 * var(--gap));
+  }
 
-.expanded .main-pic {
-  left: 440px;
-  transform: translateX(0);
-  animation: magicGlow 1.4s ease-out both;
-}
+  .expanded .Homepic img { left: 0; }
 
-.expanded .extra-3 {
-  left: 660px;
-  transform: translateX(0);
-  animation: magicIn 1.1s ease-out 0.54s both;
-}
-
-.expanded .extra-4 {
-  left: 880px;
-  transform: translateX(0);
-  animation: magicIn 1.1s ease-out 0.67s both;
+  .expanded .extra-1,
+  .expanded .extra-2,
+  .expanded .extra-3,
+  .expanded .extra-4 {
+    width: var(--tile);
+    height: var(--tile);
+  }
+  .expanded .extra-1,
+  .expanded .extra-2 { top: calc(var(--pic) + var(--gap)); }
+  .expanded .extra-3,
+  .expanded .extra-4 { top: calc(var(--pic) + var(--tile) + 2 * var(--gap)); }
+  /* ต้องเจาะจงกว่า .expanded .Homepic img ที่ตั้ง left ไว้ */
+  .expanded .Homepic .extra-2,
+  .expanded .Homepic .extra-4 { left: calc(var(--tile) + var(--gap)); }
 }
 
 /* รูปโผล่แบบเวทมนตร์: สว่างวาบ เบลอ แล้วค่อยชัด */

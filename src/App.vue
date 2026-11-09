@@ -207,6 +207,12 @@ section .title {
         font-size: 50%;
     }
 
+    /* ขอบซ้าย-ขวา 10% เปลืองที่เกินไปบนมือถือ (คงขอบบนไว้ ไม่ให้เนื้อหาไปอยู่ใต้ header) */
+    section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
     section .title {
         font-size: 3.2rem;
     }

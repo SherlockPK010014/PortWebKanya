@@ -180,8 +180,9 @@ export default {
 <style scoped>
 /* ===== Section ===== */
 .ct-section {
-  margin: 140px auto 0;
+  margin: 140px auto clamp(32px, 6vw, 80px);
   padding: 4rem 2rem;
+  min-height: 0;
   max-width: 1500px;
   color: #e2e8f0;
   border-radius: 16px;

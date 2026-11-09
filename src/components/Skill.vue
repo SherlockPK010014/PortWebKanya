@@ -173,6 +173,7 @@ export default {
 .skillga-section{
   margin-top:120px;
   padding:3rem 2rem;
+  min-height:0;
   background:
     radial-gradient(1200px 600px at 10% 0%, rgba(56,189,248,.12), transparent),
     linear-gradient(135deg,#1e293b,#0f172a);

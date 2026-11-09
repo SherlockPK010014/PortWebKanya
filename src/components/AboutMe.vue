@@ -4,10 +4,10 @@
       <div class="Pic-ABU" v-reveal style="--delay:0ms">
         <div class="card">
           <div class="card-face front">
-            <img src="@/assets/34285.jpg" alt="abu-pic-front" />
+            <img src="@/assets/34285.jpg" alt="Kanyasiri (Prang) in her university uniform, outdoors" />
           </div>
           <div class="card-face back">
-            <img src="@/assets/34287.jpg" alt="abu-pic-back" />
+            <img src="@/assets/34287.jpg" alt="Kanyasiri (Prang) blowing soap bubbles by a lake" />
           </div>
         </div>
       </div>

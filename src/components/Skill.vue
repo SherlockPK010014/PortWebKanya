@@ -11,7 +11,7 @@
             <img
               :key="hovering ? 'alt' : 'main'"
               :src="hovering ? picAlt : pic"
-              alt="profile"
+              alt=""
               @mouseover="hovering = true"
               @mouseleave="hovering = false"
             />
@@ -35,10 +35,10 @@
           <h3 class="ga-acc-heading">
             <button class="ga-acc-head" @click="toggle(gi, $event)">
               <span class="ga-acc-title">
-                <span class="dot"></span>
+                <span class="dot" aria-hidden="true"></span>
                 <span class="ga-acc-name">{{ group.category }}</span>
               </span>
-              <span class="chev" :class="{ open: openIdx === gi }">▾</span>
+              <span class="chev" :class="{ open: openIdx === gi }" aria-hidden="true">▾</span>
             </button>
           </h3>
 
@@ -52,7 +52,7 @@
                   class="ga-skill"
                   :style="{ '--item-delay': (i * 70) + 'ms' }"
                 >
-                  <span class="skill-dot"></span>
+                  <span class="skill-dot" aria-hidden="true"></span>
                   <div class="skill-content">
                     <span class="skill-name">{{ s.name }}</span>
 

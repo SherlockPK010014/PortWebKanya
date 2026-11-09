@@ -33,11 +33,11 @@
   @click="expandImages"
   v-reveal>
       <div class="Homepic">
-        <img src="@/assets/34264.jpg" alt="MainProfile-pic" class="main-pic" />
-        <img src="@/assets/34276.jpg" alt="Extra Pic1" class="extra-1" />
-        <img src="@/assets/34278.jpg" alt="Extra Pic2" class="extra-2" />
-        <img src="@/assets/34277.jpg" alt="Extra Pic3" class="extra-3" />
-        <img src="@/assets/34323.jpg" alt="Extra Pic4" class="extra-4" />
+        <img src="@/assets/34264.jpg" alt="Portrait of Kanyasiri (Prang) in her university uniform" class="main-pic" />
+        <img src="@/assets/34276.jpg" alt="" class="extra-1" />
+        <img src="@/assets/34278.jpg" alt="" class="extra-2" />
+        <img src="@/assets/34277.jpg" alt="" class="extra-3" />
+        <img src="@/assets/34323.jpg" alt="" class="extra-4" />
       </div>
     </div>
   </section>

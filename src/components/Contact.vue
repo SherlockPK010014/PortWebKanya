@@ -11,13 +11,13 @@
       <!-- Profile / main CTA -->
       <aside class="ct-profile" v-reveal style="--delay:80ms">
         <div class="ct-avatar">
-          <img :src="pic" alt="Kanyasiri K." />
+          <img :src="pic" alt="" />
         </div>
         <h3 class="ct-name">{{ profile.name }}</h3>
         <p class="ct-role">{{ profile.role }}</p>
 
         <a class="ct-cta" :href="`mailto:${profile.email}`">
-          <svg class="ct-svg" viewBox="0 0 24 24" v-html="ICONS.mail"></svg>
+          <svg class="ct-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" v-html="ICONS.mail"></svg>
           Email me
         </a>
 
@@ -32,7 +32,7 @@
             :aria-label="s.label"
             :title="s.label"
           >
-            <svg class="ct-svg" viewBox="0 0 24 24" v-html="ICONS[s.icon]"></svg>
+            <svg class="ct-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" v-html="ICONS[s.icon]"></svg>
           </a>
         </div>
       </aside>
@@ -48,13 +48,13 @@
         >
           <a class="ct-tile-link" :href="it.href" target="_blank" rel="noreferrer">
             <span class="ct-ico">
-              <svg class="ct-svg" viewBox="0 0 24 24" v-html="ICONS[it.icon]"></svg>
+              <svg class="ct-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" v-html="ICONS[it.icon]"></svg>
             </span>
             <span class="ct-meta">
               <span class="ct-label">{{ it.label }}</span>
               <span class="ct-sub">{{ it.sub }}</span>
             </span>
-            <svg class="ct-go" viewBox="0 0 24 24" v-html="ICONS.arrow"></svg>
+            <svg class="ct-go" viewBox="0 0 24 24" aria-hidden="true" focusable="false" v-html="ICONS.arrow"></svg>
           </a>
 
           <button
@@ -63,7 +63,7 @@
             :aria-label="`Copy ${it.label}`"
             @click="copy(it.copy)"
           >
-            <svg class="ct-svg" viewBox="0 0 24 24" v-html="ICONS.copy"></svg>
+            <svg class="ct-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" v-html="ICONS.copy"></svg>
           </button>
         </div>
       </div>

@@ -24,7 +24,8 @@
     :style="{ '--delay': (i * 80) + 'ms' }">
         <div class="thumb">
 
-          <img :src="c.images?.[0] ?? c.image" :alt="c.title" loading="lazy" />
+          <!-- alt="" เพราะชื่อผลงานอยู่ใต้รูปอยู่แล้ว (ไม่ให้ screen reader อ่านซ้ำสองรอบ) -->
+          <img :src="c.images?.[0] ?? c.image" alt="" loading="lazy" />
           <span v-if="c.verified" class="ribbon">Verified</span>
           <span v-if="c.images?.length" class="multi-badge">{{ c.images.length }} images</span>
         </div>
@@ -55,16 +56,23 @@
             aria-label="Previous image">&#10094;</button>
 
 
-          <img :src="active.images?.length ? active.images[activeIndex] : active.image" :alt="active.title" />
+          <img
+            :src="active.images?.length ? active.images[activeIndex] : active.image"
+            :alt="active.images?.length > 1 ? `${active.title} — image ${activeIndex + 1} of ${active.images.length}` : active.title"
+          />
 
           <button v-if="active.images?.length" class="nav next" @click.stop="next"
             aria-label="Next image">&#10095;</button>
 
 
           <div v-if="active.images?.length" class="thumbs">
+            <!-- ปุ่มรูปย่อ: บอกว่ากดแล้วได้อะไร และรูปไหนกำลังแสดงอยู่ (รูปข้างในเป็นแค่ภาพตัวอย่าง -> alt="") -->
             <button v-for="(img, idx) in active.images" :key="idx" class="thumb-btn"
-              :class="{ active: idx === activeIndex }" @click.stop="activeIndex = idx">
-              <img :src="img" :alt="`thumb-${idx}`" />
+              :class="{ active: idx === activeIndex }"
+              :aria-label="`Show image ${idx + 1} of ${active.images.length}`"
+              :aria-current="idx === activeIndex ? 'true' : null"
+              @click.stop="activeIndex = idx">
+              <img :src="img" alt="" />
             </button>
           </div>
         </div>

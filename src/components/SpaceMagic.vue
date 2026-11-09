@@ -26,7 +26,10 @@ export default {
     let lastPtr = null
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
-    const MAX_DUST = 420
+    // จอเล็ก (มือถือ) ใช้อนุภาคน้อยลงเพื่อประหยัดแบตเตอรี่ — ค่าถูกตั้งใหม่ทุกครั้งที่ resize
+    const SMALL_SCREEN = 600
+    let maxDust = 420      // จำนวนฝุ่นดาวสูงสุดบนจอ
+    let fairyRate = 85     // ฝุ่นที่นางฟ้าโปรยต่อวินาที
     const rand = (a, b) => a + Math.random() * (b - a)
 
     function makeStars() {
@@ -51,6 +54,9 @@ export default {
       c.style.width = w + 'px'
       c.style.height = h + 'px'
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      const small = w < SMALL_SCREEN
+      maxDust = small ? 220 : 420
+      fairyRate = small ? 45 : 85
       makeStars()
       if (!running) draw(0) // วาดดาวนิ่ง ๆ เมื่อหยุดอยู่
     }
@@ -78,7 +84,7 @@ export default {
     }
 
     function emit(x, y, spread = 6, speed = 1) {
-      if (dust.length >= MAX_DUST) return
+      if (dust.length >= maxDust) return
       dust.push({
         x: x + rand(-spread, spread),
         y: y + rand(-spread, spread),
@@ -97,7 +103,7 @@ export default {
     function burst(x, y, count = 40, power = 1) {
       if (reduced || !running) return
       for (let i = 0; i < count; i++) {
-        if (dust.length >= MAX_DUST + 200) break
+        if (dust.length >= maxDust + 200) break
         const ang = rand(0, Math.PI * 2)
         const sp = rand(50, 230) * power
         dust.push({
@@ -198,7 +204,7 @@ export default {
 
       // นางฟ้าโปรยฝุ่นดาวตลอดทางที่บิน
       const f = fairyPos(time * 0.35)
-      emitAcc += dt * 85
+      emitAcc += dt * fairyRate
       while (emitAcc >= 1) { emit(f.x, f.y, 7); emitAcc -= 1 }
 
       // ดาวตกทุก ๆ 3–7 วินาที
